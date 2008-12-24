@@ -12,7 +12,7 @@ class MainController < Ramaze::Controller
   def index
     @title = "Build Monitor"
     @projects = []
-    @projects += fetch_projects 'http://localhost:8080/dashboard/cctray.xml'
+    @projects += Project.fetch 'http://localhost:8080/dashboard/cctray.xml'
   end
 
   def error
