@@ -1,0 +1,49 @@
+/* @override
+    http://localhost:7000/css/monitor.css
+    http://localhost:9080/css/monitor.css
+*/
+
+body {
+    margin-left: 4em;
+    background-color: #000;
+    font: 30px Helvetica, Arial, sans-serif;
+    font-color: #FFF;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    display: none;
+}
+
+div.project {
+    color: #000;
+    text-align: center;
+/*    width: 400px;*/
+    float: left;
+/*    height: 260px;*/
+    margin: 1em;
+}
+
+div.no_projects {
+  color: #000;
+  width: 400px;
+  height: 260px;
+  margin: 1em;
+  border-color: red;
+}
+.Success.Sleeping {
+    background-color: #00c64b;
+}
+
+.Failure.Sleeping {
+    background-color: #ff0816;
+}
+
+.Success.Building {
+    background-color: #fcff2c;
+}
+
+.Failure.Building {
+    background-color: #ffba6c;
+}

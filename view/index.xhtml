@@ -1,0 +1,14 @@
+<?r @projects.each do |project| ?>
+<a href="#{project.web_url}">
+<div class="project #{project.last_build_status} #{project.activity}">
+	<h2>#{project.name}</h2>
+	<p>#{project.last_build_label}</p>
+	<p>#{project.last_build_time}</p>
+	<p>Success Count : #{project.success_count}</p>
+<!--	<p>Time since previous successful build : #{(Time.now  - project.last_successful_build.to_i)}</p> -->
+	<p>Failure Count : #{project.failure_count}</p>
+<!--	<p>Time since previous failed build : #{Time.now - (project.last_failed_build.to_i || Time.now)}</p> -->
+	<p>Total Builds : #{project.build_count}</p>
+</div>
+</a>
+<?r end ?>

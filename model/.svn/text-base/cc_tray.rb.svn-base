@@ -1,0 +1,33 @@
+require "rexml/document"
+require 'net/http'
+require 'uri'
+require 'ostruct'
+
+def fetch_xml(address)
+  url = URI.parse(address)
+  Net::HTTP.start(url.host, url.port) do |http|
+    req = Net::HTTP::Get.new(url.path)
+    response = http.request(req)
+    case response
+      when Net::HTTPSuccess     then response.body
+      when Net::HTTPRedirection then fetch_xml(response['location'])
+      else response.error!
+    end
+  end
+end
+
+def fetch_projects(address)
+  projects = []
+  xml_text = fetch_xml address
+  doc = REXML::Document.new xml_text
+  doc.elements.each('Projects/Project') do |element|
+    project = OpenStruct.new
+    project.name = element.attributes['name']
+    project.activity = element.attributes['activity']
+    project.lastBuildStatus = element.attributes['lastBuildStatus']
+    project.lastBuildLabel = element.attributes['lastBuildLabel']
+    project.lastBuildTime = element.attributes['lastBuildTime']
+    projects << project
+  end
+  projects
+end
