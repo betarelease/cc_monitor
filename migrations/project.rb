@@ -23,5 +23,3 @@ class Project < ActiveRecord::Migration
     drop_table :projects
   end
 end
-
-Project.up
