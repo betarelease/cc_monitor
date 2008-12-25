@@ -14,5 +14,5 @@ namespace :monitor do
     start
   end
   
-  task :clean => ['db:migrate:reset']
+  task :clean => ['db:migrate:reset']  
 end

@@ -1,2 +1,5 @@
 To use just download and change the project url in controller/main.rb.
-Then type 'ruby start.rb'
+
+Type 'rake monitor:clean' - to setup the database
+then type 
+'rake monitor:start'
