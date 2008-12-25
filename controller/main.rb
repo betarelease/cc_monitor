@@ -16,8 +16,8 @@ class MainController < Ramaze::Controller
   end
 
   def error
-    @title = "No Projects."
-    @content = "No Projects"
+    @title = "Error retrieving projects."
+    @content = "Custom error message here."
   end
   
   # the string returned at the end of the function is used as the html body

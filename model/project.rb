@@ -30,7 +30,6 @@ class Project < ActiveRecord::Base
     projects = []
     xml_text = fetch_xml address
     doc = REXML::Document.new xml_text
-    puts doc
     doc.elements.each('Projects/Project') do |element|
       project = Project.find_or_create_by_name(element.attributes['name']) 
       project.activity = element.attributes['activity']
