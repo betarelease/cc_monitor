@@ -7,3 +7,12 @@ namespace :db do
     end
   end
 end
+
+namespace :monitor do
+  task :start do
+    require 'start'
+    start
+  end
+  
+  task :clean => ['db:migrate:reset']
+end
