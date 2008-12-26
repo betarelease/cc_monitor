@@ -1,3 +1,22 @@
+DESCRIPTION--
+
+CC Monitor as the name suggests allows you to monitor multiple Continuous Integration environments. Currently it can parse cc_tray compatible xml for CruiseControl. 
+CC Monitor collects all the build information and puts it on a dashboard. CC Monitor is different that the dashboard that comes with Cruisecontrol. With CC Monitor you can actually monitor different Cruisecontrol environments just by specifying the location of the cc_tray.xml file.
+
+CC Monitor provides a big visible display which can be projected to the whole development room. Having a big visible display of Cruise builds can help the team monitor the health of the code all the time and they do not need to look at their local CruiseControl Monitors. 
+
+Currently it can display information that is part of the xml file. Apart from that it also displays the progress over a period of time to indicate how healthy the application has been. 
+
+Features to come:
+1. Adding graphical display for health of application over time
+2. Resetting graphs daily
+3. Adding audible indications to the monitor
+4. Better graphics to indicate the status of the build 
+5. Marking fix owners for broken builds
+and many more....
+
+USAGE--
+
 To use just download and change the project url in controller/main.rb.
 
 Type 'rake monitor:clean' - to setup the database
