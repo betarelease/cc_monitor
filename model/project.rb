@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
   
   def self.fetch_xml(address)
     url = URI.parse(address)
-    begin
+    begin 
       Net::HTTP.start(url.host, url.port) do |http|
         req = Net::HTTP::Get.new(url.path)
         response = http.request(req)
@@ -21,39 +21,75 @@ class Project < ActiveRecord::Base
           else response.error!
         end
       end
-    rescue 
-      raise "No Projects"
+    rescue
+      error = <<EOF
+<Projects>
+<Project name="Could not connect to #{address}" activity="Error" lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{address}"/>
+</Projects>'
+EOF
     end
   end
 
-  def self.fetch(address)
-    projects = []
+  def self.fetch_rss(address)
     xml_text = fetch_xml address
     doc = REXML::Document.new xml_text
-    doc.elements.each('Projects/Project') do |element|
-      project = Project.find_or_create_by_name(element.attributes['name']) 
-      project.activity = element.attributes['activity']
-      project.last_build_status = element.attributes['lastBuildStatus']
-      project.last_build_time = element.attributes['lastBuildTime']
-      project.web_url = element.attributes['webUrl']
+    projects = []
+    doc.elements.each('rss/channel/item') do |element|
+      title = element.elements["title"].get_text.to_s.split(" ")[0]
+      status = element.elements["description"].get_text
+      last_build_time = element.elements["pubDate"].get_text
+      web_url = element.elements["link"].get_text
+      project = Project.find_or_create_by_name({:name => title, 
+                                                :last_build_status => status,
+                                                :last_build_time => last_build_time, 
+                                                :last_build_label => 1})
+      projects << project
+    end
+    projects
+  end
 
-      unless project.last_build_label == element.attributes['lastBuildLabel']
-        project.last_build_label = element.attributes['lastBuildLabel']
-        project.build_count +=1
-        if project.last_build_status.include? "Success"
-          project.success_count += 1 
-          project.last_successful_build = project.last_build_time
-        end
-        if project.last_build_status.include? "Failure"
-          project.failure_count += 1
-          project.last_failed_build = project.last_build_time
-        end
+  def self.fetch(address)
+    xml_text = fetch_xml address
+    doc = REXML::Document.new xml_text
+    projects = []
+    doc.elements.each('Projects/Project') do |element|
+      if element.attributes['name'].include? "Could not connect"
+        project = OpenStruct.new(element.attributes)
+      else
+        project =  find_or_create(element)
+        project.last_successful_build = difference(project.last_successful_build)
+        project.last_failed_build = difference(project.last_failed_build)
       end
-      project.save!           
       projects << project
     end
     projects
   end
   
-end
+  def self.difference(recorded_time)
+    seconds = (Time.now - recorded_time.to_i).to_i
+    minutes = seconds/60
+    hours = minutes/60
+  end
 
+  def self.find_or_create(element)
+    values = {}
+    element.attributes.each do |name, value|
+      values.merge!(name.underscore.to_sym => value.to_s)
+    end
+    project = Project.find_or_create_by_name(values)
+    unless project.last_build_label == element.attributes['lastBuildLabel']
+      project.last_build_label = element.attributes['lastBuildLabel']
+      project.build_count +=1
+      if project.last_build_status.include? "Success"
+        project.success_count += 1 
+        project.last_successful_build = project.last_build_time
+      end
+      if project.last_build_status.include? "Failure"
+        project.failure_count += 1
+        project.last_failed_build = project.last_build_time
+      end
+    end
+    project.save!           
+    project
+  end
+end

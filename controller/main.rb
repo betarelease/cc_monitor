@@ -13,13 +13,10 @@ class MainController < Ramaze::Controller
     @title = "Build Monitor"
     @projects = []
     @projects += Project.fetch 'http://localhost:8080/dashboard/cctray.xml'
+    @projects += Project.fetch 'http://localhost:3333/dashboard/cctray.xml'
+    # @projects += Project.fetch_rss 'http://localhost:8080/dashboard/rss.xml'
   end
 
-  def error
-    @title = "Error retrieving projects."
-    @content = "Custom error message here."
-  end
-  
   # the string returned at the end of the function is used as the html body
   # if there is no template for the action. if there is a template, the string
   # is silently ignored
