@@ -12,8 +12,8 @@ class MainController < Ramaze::Controller
   def index
     @title = "Build Monitor"
     @projects = []
-    @projects += Project.fetch 'http://localhost:8080/dashboard/cctray.xml'
-    @projects += Project.fetch 'http://localhost:3333/dashboard/cctray.xml'
+    @projects += Project.fetch 'http://indra.ecom.sears.com:8181/dashboard/cctray.xml'
+    @projects += Project.fetch 'http://151.149.12.148:8181/dashboard/cctray.xml'
     # @projects += Project.fetch_rss 'http://localhost:8080/dashboard/rss.xml'
   end
 

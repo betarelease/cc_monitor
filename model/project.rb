@@ -77,8 +77,8 @@ EOF
       values.merge!(name.underscore.to_sym => value.to_s)
     end
     project = Project.find_or_create_by_name(values)
-    unless project.last_build_label == element.attributes['lastBuildLabel']
-      project.last_build_label = element.attributes['lastBuildLabel']
+    unless project.last_build_time == Time.parse(element.attributes['lastBuildTime'])
+      project.last_build_time = element.attributes['lastBuildTime']
       project.build_count +=1
       if project.last_build_status.include? "Success"
         project.success_count += 1 

@@ -1,5 +1,5 @@
 <?r @projects.each do |project| ?>
-<a href="#{project.web_url}">
+<a href="#{project.web_url}" target="_blank">
 <div class="project #{project.last_build_status} #{project.activity}">
 	<h2>#{project.name}</h2>
 	<p>#{project.last_build_label}</p>
