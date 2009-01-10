@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
       error = <<EOF
 <Projects>
 <Project name="Could not connect to #{address}" activity="Error" lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{address}"/>
-</Projects>'
+</Projects>
 EOF
     end
   end
@@ -76,9 +76,13 @@ EOF
     element.attributes.each do |name, value|
       values.merge!(name.underscore.to_sym => value.to_s)
     end
+    puts "BEFORE", values
     project = Project.find_or_create_by_name(values)
     unless project.last_build_time == Time.parse(element.attributes['lastBuildTime'])
       project.last_build_time = element.attributes['lastBuildTime']
+      project.last_build_status = element.attributes['lastBuildStatus']
+      project.last_build_label =element.attributes['lastBuildLabel']
+      project.activity = element.attributes['activity']
       project.build_count +=1
       if project.last_build_status.include? "Success"
         project.success_count += 1 
@@ -89,7 +93,9 @@ EOF
         project.last_failed_build = project.last_build_time
       end
     end
-    project.save!           
+    project.save! 
+    project.reload
+    puts "AFTER", project.inspect if project.name == 'mmh'
     project
   end
 end
