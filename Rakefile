@@ -1,3 +1,4 @@
+PROJECTS = 'http://taney.thoughtworks.com:8080/dashboard/cctray.xml'
 namespace :db do
   namespace :migrate do
     task :reset do

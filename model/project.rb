@@ -49,10 +49,9 @@ EOF
   end
 
   def self.fetch(address)
-    xml_text = fetch_xml address
-    doc = REXML::Document.new xml_text
+    feed = fetch_xml address
     projects = []
-    doc.elements.each('Projects/Project') do |element|
+    CcTray.new.parse(feed) do |element|
       if element.attributes['name'].include? "Could not connect"
         project = OpenStruct.new(element.attributes)
       else
@@ -76,8 +75,8 @@ EOF
     element.attributes.each do |name, value|
       values.merge!(name.underscore.to_sym => value.to_s)
     end
-    puts "BEFORE", values
-    project = Project.find_or_create_by_name(values)
+    puts values.inspect
+    project = Project.find_or_create_by_name(values[:name])
     unless project.last_build_time == Time.parse(element.attributes['lastBuildTime'])
       project.last_build_time = element.attributes['lastBuildTime']
       project.last_build_status = element.attributes['lastBuildStatus']
@@ -94,8 +93,6 @@ EOF
       end
     end
     project.save! 
-    project.reload
-    puts "AFTER", project.inspect if project.name == 'mmh'
     project
   end
 end

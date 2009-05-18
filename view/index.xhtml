@@ -3,7 +3,7 @@
 <div class="project #{project.last_build_status} #{project.activity}">
 	<h2>#{project.name}</h2>
 	<p>#{project.last_build_label}</p>
-	<p>#{project.last_build_time}</p>
+	<!--p>#{project.last_build_time}</p-->
 	<p>Success Rate : #{project.success_count || 0 } of #{project.build_count || 0}</p>
   <p>Last success : #{project.last_successful_build.to_i} hours ago </p> 
 </div>

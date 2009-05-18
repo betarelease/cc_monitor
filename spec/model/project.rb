@@ -15,23 +15,37 @@ EOF
     Project.fetch_xml(address).should == xml
   end
 
-    it "parse xml" do
+  it "parse xml for Error project" do
+    address = :address
+    xml = :xml
+    Project.should_receive(:fetch_xml).and_return(xml)
+    attributes = {'name' => "Could not connect", 'activity' => "", 'lastBuildTime' => "",
+                  'lastBuildLabel' => "", 'lastBuildStatus' => "", 'webUrl' => "#{address}"}
+    doc = OpenStruct.new
+    element = OpenStruct.new(:attributes => attributes)
+    elements = OpenStruct.new
+    elements.should_receive(:each).and_yield(element)
+    doc.should_receive(:elements).and_return(elements)
+    REXML::Document.should_receive(:new).and_return(doc)
+    Project.fetch(address).should == [xml]
+  end
+    
+    it "calculates time difference" do      
+      Project.difference(2.days.ago).should == 48
+    end
+    
+    it "parse xml for valid project" do
       address = :address
-      xml = <<EOF
-<Projects>
-<Project name="Could not connect to #{address}" activity="Error" lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{address}"/>
-</Projects>
-EOF
+      xml = :xml
       Project.should_receive(:fetch_xml).and_return(xml)
-      attributes = {'name' => "Could not connect", 'activity' => "", 'lastBuildTime' => "",
-                    'lastBuildLabel' => "", 'lastBuildStatus' => "", 'webUrl' => "#{address}"}
+      attributes = {'name' => "testProject", 'activity' => "Sleeping", 'lastBuildTime' => "unknown",
+                    'lastBuildLabel' => "1.0", 'lastBuildStatus' => "Success", 'webUrl' => "http://www.com"}
       doc = OpenStruct.new
       element = OpenStruct.new(:attributes => attributes)
       elements = OpenStruct.new
       elements.should_receive(:each).and_yield(element)
-      doc.should_receive(:elements).and_return(elements)
       REXML::Document.should_receive(:new).and_return(doc)
-      Project.fetch(address).should == [xml]
+      Project.fetch(address)
     end
   
 end

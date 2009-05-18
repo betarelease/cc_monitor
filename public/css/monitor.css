@@ -1,8 +1,3 @@
-/* @override
-    http://localhost:7000/css/monitor.css
-    http://localhost:9080/css/monitor.css
-*/
-
 body {
     margin:1.8em 0 0 4em;
     background:#000e0e url(/images/bg_repeat.png);
@@ -11,32 +6,62 @@ body {
 
 a   { cursor:pointer; }
 h1  { display:none; }
-h2  { font-size:1.1em; }
-p   { font-size:0.6em; } 
+h2  { font-size:0.9em; }
+p   { font-size:0.5em; } 
 
 div.project {
-    color:#000e0e;
+    color:#fff;
     text-align:center;
     width:300px;
     float:left;
     height:180px;
-    margin:0.8em;
+    margin:0.2em;
     position:relative;
 }
 
 div.icon { position:absolute; }
 
 .Error           { background:#882132; color:#fff; }
-.Error div.icon  { width:59px; height:60px; top:-25px; right:-25px; background:url(/images/icon_success_building.gif) no-repeat; }
+.Error div.icon  { 
+  width:59px; 
+  height:60px; 
+  top:-25px; 
+  right:-25px; 
+  background:url(/images/icon_success_building.gif) no-repeat; 
+}
 
 .Success.Sleeping           { background:#2bca5b; color:#040302; }
-.Success.Sleeping div.icon  { width:76px; height:87px; top:-55px; right:-25px; background:url(/images/icon_success_sleeping.gif) no-repeat; }
+.Success.Sleeping div.icon  { 
+  width:76px; 
+  height:87px; 
+  top:-55px; 
+  right:-25px; 
+  background:url(/images/icon_success_sleeping.gif) no-repeat; 
+}
 
 .Failure.Sleeping           { background:#882132; color:#fff; }
-.Failure.Sleeping div.icon  { width:75px; height:76px; top:-45px; right:-25px; background:url(/images/icon_failure_sleeping.gif) no-repeat; }
+.Failure.Sleeping div.icon  { 
+  width:75px; 
+  height:76px; 
+  top:-45px; 
+  right:-25px; 
+  background:url(/images/icon_failure_sleeping.gif) no-repeat; 
+}
 
 .Success.Building           { background:#2bca5b; color:#040302; }
-.Success.Building div.icon  { width:59px; height:60px; top:-25px; right:-25px; background:url(/images/icon_success_building.gif) no-repeat; }
+.Success.Building div.icon  { 
+  width:59px; 
+  height:60px; 
+  top:-25px; 
+  right:-25px; 
+  background:url(/images/icon_success_building.gif) no-repeat; 
+}
 
 .Failure.Building           { background:#882132; color:#fff; }
-.Failure.Building div.icon  { width:60px; height:59px; top:-25px; right:-25px; background:url(/images/icon_failure_building.gif) no-repeat; }
+.Failure.Building div.icon  { 
+  width:60px; 
+  height:59px; 
+  top:-25px; 
+  right:-25px; 
+  background:url(/images/icon_failure_building.gif) no-repeat; 
+}
