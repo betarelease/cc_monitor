@@ -4,10 +4,25 @@ require 'net/http'
 require 'uri'
 require 'ostruct'
 
-
 ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => 'db.sqlite'
 class Project < ActiveRecord::Base
   set_table_name 'projects'
+  
+  def self.fetch(address)
+    feed = fetch_xml address
+    projects = []
+    CcTray.new.parse(feed) do |element|
+      if element.attributes['name'].include? "Could not connect"
+        project = OpenStruct.new(element.attributes)
+      else
+        project = find_or_create(element)
+        project.last_successful_build = difference(project.last_successful_build)
+        project.last_failed_build = difference(project.last_failed_build)
+      end
+      projects << project
+    end
+    projects
+  end
   
   def self.fetch_xml(address)
     url = URI.parse(address)
@@ -22,30 +37,19 @@ class Project < ActiveRecord::Base
         end
       end
     rescue
-      error = <<EOF
-<Projects>
-<Project name="Could not connect to #{address}" activity="Error" lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{address}"/>
-</Projects>
-EOF
+      error = error_xml
     end
   end
 
-  def self.fetch(address)
-    feed = fetch_xml address
-    projects = []
-    CcTray.new.parse(feed) do |element|
-      if element.attributes['name'].include? "Could not connect"
-        project = OpenStruct.new(element.attributes)
-      else
-        project =  find_or_create(element)
-        project.last_successful_build = difference(project.last_successful_build)
-        project.last_failed_build = difference(project.last_failed_build)
-      end
-      projects << project
-    end
-    projects
+  def self.error_xml
+    error = <<EOF
+<Projects>
+<Project name="Could not connect to #{address}" activity="Error" 
+lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{address}"/>
+</Projects>
+EOF
   end
-  
+
   def self.difference(recorded_time)
     seconds = (Time.now - recorded_time.to_i).to_i
     minutes = seconds/60
@@ -59,21 +63,27 @@ EOF
     end
     project = Project.find_or_create_by_name(values[:name])
     unless project.last_build_time == Time.parse(element.attributes['lastBuildTime'])
-      project.last_build_time = element.attributes['lastBuildTime']
-      project.last_build_status = element.attributes['lastBuildStatus']
-      project.last_build_label =element.attributes['lastBuildLabel']
-      project.activity = element.attributes['activity']
-      project.build_count +=1
-      if project.last_build_status.include? "Success"
-        project.success_count += 1 
-        project.last_successful_build = project.last_build_time
-      end
-      if project.last_build_status.include? "Failure"
-        project.failure_count += 1
-        project.last_failed_build = project.last_build_time
-      end
+      populate_project(project, element)
     end
     project.save! 
     project
   end
+  
+  def self.populate_project(project, element)
+    project.last_build_time = element.attributes['lastBuildTime']
+    project.last_build_status = element.attributes['lastBuildStatus']
+    project.last_build_label =element.attributes['lastBuildLabel']
+    project.activity = element.attributes['activity']
+    project.build_count +=1
+    if project.last_build_status.include? "Success"
+      project.success_count += 1 
+      project.last_successful_build = project.last_build_time
+    end
+    if project.last_build_status.include? "Failure"
+      project.failure_count += 1
+      project.last_failed_build = project.last_build_time
+    end
+    project
+  end
+  
 end

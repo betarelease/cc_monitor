@@ -12,7 +12,7 @@ class MainController < Ramaze::Controller
   def index
     @title = "Build Monitor"
     @projects = []
-    @projects += Project.fetch PROJECTS
+    @projects += CcTray.new.fetch PROJECTS
   end
 
   # the string returned at the end of the function is used as the html body
