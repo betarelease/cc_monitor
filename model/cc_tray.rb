@@ -1,3 +1,8 @@
+require "rexml/document"
+require 'net/http'
+require 'uri'
+require 'ostruct'
+
 class CcTray
   def parse(feed)
     doc = REXML::Document.new feed
@@ -8,19 +13,51 @@ class CcTray
   end
   
   def fetch(address)
-    feed = Project.fetch_xml address
+    feed = fetch_xml address
     projects = []
     parse(feed) do |element|
       if element.attributes['name'].include? "Could not connect"
         project = OpenStruct.new(element.attributes)
       else
         project = Project.find_or_create(element)
-        project.last_successful_build = Project.difference(project.last_successful_build)
-        project.last_failed_build = Project.difference(project.last_failed_build)
+        project.last_successful_build = difference(project.last_successful_build)
+        project.last_failed_build = difference(project.last_failed_build)
       end
       projects << project
     end
     projects
+  end
+  
+  def fetch_xml(address)
+    url = URI.parse(address)
+    begin 
+      Net::HTTP.start(url.host, url.port) do |http|
+        req = Net::HTTP::Get.new(url.path)
+        response = http.request(req)
+        case response
+          when Net::HTTPSuccess     then response.body
+          when Net::HTTPRedirection then fetch_xml(response['location'])
+          else response.error!
+        end
+      end
+    rescue
+      error = error_xml
+    end
+  end
+
+  def error_xml
+    error = <<EOF
+<Projects>
+<Project name="Could not connect to #{address}" activity="Error" 
+lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{address}"/>
+</Projects>
+EOF
+  end
+  
+  def difference(recorded_time)
+    seconds = (Time.now - recorded_time.to_i).to_i
+    minutes = seconds/60
+    hours = minutes/60
   end
   
 end
