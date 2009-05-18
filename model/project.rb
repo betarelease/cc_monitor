@@ -30,24 +30,6 @@ EOF
     end
   end
 
-  def self.fetch_rss(address)
-    xml_text = fetch_xml address
-    doc = REXML::Document.new xml_text
-    projects = []
-    doc.elements.each('rss/channel/item') do |element|
-      title = element.elements["title"].get_text.to_s.split(" ")[0]
-      status = element.elements["description"].get_text
-      last_build_time = element.elements["pubDate"].get_text
-      web_url = element.elements["link"].get_text
-      project = Project.find_or_create_by_name({:name => title, 
-                                                :last_build_status => status,
-                                                :last_build_time => last_build_time, 
-                                                :last_build_label => 1})
-      projects << project
-    end
-    projects
-  end
-
   def self.fetch(address)
     feed = fetch_xml address
     projects = []
@@ -75,7 +57,6 @@ EOF
     element.attributes.each do |name, value|
       values.merge!(name.underscore.to_sym => value.to_s)
     end
-    puts values.inspect
     project = Project.find_or_create_by_name(values[:name])
     unless project.last_build_time == Time.parse(element.attributes['lastBuildTime'])
       project.last_build_time = element.attributes['lastBuildTime']
