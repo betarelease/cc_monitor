@@ -1,6 +1,7 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), "../vendor/activerecord-2.1.1/lib/activerecord")
 
 ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => 'db.sqlite'
+
 class Project < ActiveRecord::Base
   set_table_name 'projects'
   
@@ -11,8 +12,9 @@ class Project < ActiveRecord::Base
     end
     project = Project.find_or_create_by_name(values[:name])
     unless project.last_build_time == Time.parse(element.attributes['lastBuildTime'])
-      populate_project(project, element)
+      project = populate_project(project, element)
     end
+    Graph.new.plot(project)
     project.save! 
     project
   end
@@ -22,6 +24,7 @@ class Project < ActiveRecord::Base
     project.last_build_status = element.attributes['lastBuildStatus']
     project.last_build_label =element.attributes['lastBuildLabel']
     project.activity = element.attributes['activity']
+    project.web_url = element.attributes['webUrl']
     project.build_count +=1
     if project.last_build_status.include? "Success"
       project.success_count += 1 

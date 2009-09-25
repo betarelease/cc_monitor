@@ -3,15 +3,7 @@ require 'net/http'
 require 'uri'
 require 'ostruct'
 
-class CcTray
-  def parse(feed)
-    doc = REXML::Document.new feed
-    projects = []
-    doc.elements.each('Projects/Project') do |element|
-      yield element
-    end
-  end
-  
+class CCTray
   def fetch(address)
     feed = fetch_xml address
     projects = []
@@ -28,7 +20,10 @@ class CcTray
     projects
   end
   
+private
+  
   def fetch_xml(address)
+    return "" unless address
     url = URI.parse(address)
     begin 
       Net::HTTP.start(url.host, url.port) do |http|
@@ -41,11 +36,11 @@ class CcTray
         end
       end
     rescue
-      error = error_xml
+      error_xml(address)
     end
   end
 
-  def error_xml
+  def error_xml(address)
     error = <<EOF
 <Projects>
 <Project name="Could not connect to #{address}" activity="Error" 
@@ -53,6 +48,15 @@ lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl=
 </Projects>
 EOF
   end
+  
+  def parse(feed)
+    doc = REXML::Document.new feed
+    projects = []
+    doc.elements.each('Projects/Project') do |element|
+      yield element
+    end
+  end
+  
   
   def difference(recorded_time)
     seconds = (Time.now - recorded_time.to_i).to_i

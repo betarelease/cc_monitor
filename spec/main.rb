@@ -1,5 +1,4 @@
-require 'ramaze'
-require 'ramaze/spec/helper'
+require File.join(File.expand_path(File.dirname(__FILE__)), "/spec_helper")
 
 require __DIR__/'..'/'start'
 
