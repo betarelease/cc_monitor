@@ -1,7 +1,0 @@
-<?r @projects.each do |project| ?>
-<div class="project #{project.lastBuildStatus} #{project.activity}">
-	<h2>#{project.name}</h2>
-	<p>#{project.lastBuildLabel}</p>
-	<p>#{project.lastBuildTime}</p>
-</div>
-<?r end ?>

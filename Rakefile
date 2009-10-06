@@ -1,4 +1,5 @@
-PROJECTS = 'http://localhost:8080/dashboard/cctray.xml' #'http://taney.thoughtworks.com:8080/dashboard/cctray.xml'
+PROJECTS = "http://cruisecontrolrb.engineering.rackspace.com/XmlStatusReport.aspx"
+TITLE    = "BLACKBOX BUILD MONITOR"
 
 namespace :db do
   namespace :migrate do
@@ -7,6 +8,12 @@ namespace :db do
       Project.down
       Project.up
     end
+  end
+end
+
+task :spec do
+  Dir.glob("spec/model/").each do |spec_name|
+    spec spec_name
   end
 end
 

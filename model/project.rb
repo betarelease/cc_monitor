@@ -11,10 +11,10 @@ class Project < ActiveRecord::Base
       values.merge!(name.underscore.to_sym => value.to_s)
     end
     project = Project.find_or_create_by_name(values[:name])
-    unless project.last_build_time == Time.parse(element.attributes['lastBuildTime'])
+    unless project.last_build_label == element.attributes['lastBuildLabel']
       project = populate_project(project, element)
     end
-    Graph.new.plot(project)
+    # Graph.new.plot(project)
     project.save! 
     project
   end

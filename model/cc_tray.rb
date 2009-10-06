@@ -28,6 +28,7 @@ private
     begin 
       Net::HTTP.start(url.host, url.port) do |http|
         req = Net::HTTP::Get.new(url.path)
+        req.basic_auth 'thoughtworks', 'th0ughtw0rks'
         response = http.request(req)
         case response
           when Net::HTTPSuccess     then response.body

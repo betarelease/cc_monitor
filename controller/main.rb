@@ -10,7 +10,7 @@ class MainController < Ramaze::Controller
 
   # the index action is called automatically when no other action is specified
   def index
-    @title = "Build Monitor"
+    @title = TITLE
     @projects = []
     @projects += CCTray.new.fetch PROJECTS
   end

@@ -5,7 +5,7 @@ body {
 }
 
 a   { cursor:pointer; }
-h1  { display:none; }
+h1  { font-size:1em; color: #fff; text-align:center;}
 h2  { font-size:0.9em; }
 p   { font-size:0.5em; } 
 
@@ -30,6 +30,8 @@ div.icon { position:absolute; }
   background:url(/images/icon_success_building.gif) no-repeat; 
 }
 
+.Success.Unknown,
+.Success.CheckingModifications,
 .Success.Sleeping           { background:#2bca5b; color:#040302; }
 .Success.Sleeping div.icon  { 
   width:76px; 
@@ -39,6 +41,8 @@ div.icon { position:absolute; }
   background:url(/images/icon_success_sleeping.gif) no-repeat; 
 }
 
+.Failure.Unknown,
+.Failure.CheckingModifications,
 .Failure.Sleeping           { background:#882132; color:#fff; }
 .Failure.Sleeping div.icon  { 
   width:75px; 
