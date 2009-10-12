@@ -5,36 +5,51 @@ ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => 'db.
 class Project < ActiveRecord::Base
   set_table_name 'projects'
   
-  def self.find_or_create(element)
+  def self.find_or_create(feed)
     values = {}
-    element.attributes.each do |name, value|
+    feed.attributes.each do |name, value|
       values.merge!(name.underscore.to_sym => value.to_s)
     end
-    project = Project.find_or_create_by_name(values[:name])
-    unless project.last_build_label == element.attributes['lastBuildLabel']
-      project = populate_project(project, element)
+    Project.find_or_create_by_name(values[:name])
+  end
+
+  def record!(feed)
+    old_label = last_build_label
+    populate(feed)
+    unless old_label == feed.attributes['lastBuildLabel']
+      record_success! if last_build_status.include? "Success"
+      record_failure! if last_build_status.include? "Failure"
     end
-    # Graph.new.plot(project)
-    project.save! 
-    project
+  end
+    
+private
+
+  def difference(recorded_time)
+    seconds = (Time.now - recorded_time.to_i).to_i
+    minutes = seconds/60
+    hours = minutes/60
   end
   
-  def self.populate_project(project, element)
-    project.last_build_time = element.attributes['lastBuildTime']
-    project.last_build_status = element.attributes['lastBuildStatus']
-    project.last_build_label =element.attributes['lastBuildLabel']
-    project.activity = element.attributes['activity']
-    project.web_url = element.attributes['webUrl']
-    project.build_count +=1
-    if project.last_build_status.include? "Success"
-      project.success_count += 1 
-      project.last_successful_build = project.last_build_time
-    end
-    if project.last_build_status.include? "Failure"
-      project.failure_count += 1
-      project.last_failed_build = project.last_build_time
-    end
-    project
+  def populate(feed)
+    self.last_build_time = feed.attributes['lastBuildTime']
+    self.last_build_status = feed.attributes['lastBuildStatus']
+    self.last_build_label = feed.attributes['lastBuildLabel']
+    self.activity = feed.attributes['activity']
+    self.web_url = feed.attributes['webUrl']
+  end
+  
+  def record_failure!
+    self.failure_count += 1
+    self.last_failed_build = difference(self.last_build_time)
+    self.build_count += 1
+    save!
+  end
+
+  def record_success!
+    self.success_count +=1
+    self.last_successful_build = difference(self.last_build_time)
+    self.build_count += 1
+    save!
   end
   
 end

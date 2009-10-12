@@ -2,50 +2,33 @@ require File.join(File.expand_path(File.dirname(__FILE__)), "../spec_helper")
 require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/project")
 
 describe Project do
-  it "fetch cc_tray xml" do
-    address = :address
-    xml = <<EOF
-<Projects>
-<Project name="Could not connect to #{address}" activity="Error" lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{address}"/>
-</Projects>
-EOF
-    url = {:host => "host", :port => "port"}
-    URI.should_receive(:parse).with(address).and_return(url)
-    # NET::HTTP.should_receive(:start).with(url[:host], url[:port]).and_yield
-    Project.fetch_xml(address).should == xml
+  describe "find_or_create" do
+    it "should save project details only for a different build label" do
+      project = Project.new(:name => "some project", 
+                            :last_build_label => "previous", 
+                            :last_build_status => "Success")
+      project.save!
+      project.last_build_time = element.attributes['lastBuildTime']
+      project.last_build_status = element.attributes['lastBuildStatus']
+      project.last_build_label = element.attributes['lastBuildLabel']
+      project.activity = element.attributes['activity']
+      project.web_url = element.attributes['webUrl']
+      
+      input_project = {"name" => "some project",
+                       "lastBuildStatus" => "Failure",
+                       "lastBuildLabel" => "previous",
+                       "lastBuildTime" => Time.now.to_s,
+                       "activity" => "Sleeping",
+                       "webUrl" => "www.com"}
+      found_project = Project.find_or_create(input_project)
+      found_project.last_build_label.should == "previous"
+      found_project.last_build_status.should == "Failure"
+      found_project.last_build_time.should == Time.now.to_s
+      found_project.activity.should == "Sleeping"
+      found_project.webUrl.should == "www.com"
+      
+      
+    end
   end
 
-  it "parse xml for Error project" do
-    address = :address
-    xml = :xml
-    Project.should_receive(:fetch_xml).and_return(xml)
-    attributes = {'name' => "Could not connect", 'activity' => "", 'lastBuildTime' => "",
-                  'lastBuildLabel' => "", 'lastBuildStatus' => "", 'webUrl' => "#{address}"}
-    doc = OpenStruct.new
-    element = OpenStruct.new(:attributes => attributes)
-    elements = OpenStruct.new
-    elements.should_receive(:each).and_yield(element)
-    doc.should_receive(:elements).and_return(elements)
-    REXML::Document.should_receive(:new).and_return(doc)
-    Project.fetch(address).should == [xml]
-  end
-    
-    it "calculates time difference" do      
-      Project.difference(2.days.ago).should == 48
-    end
-    
-    it "parse xml for valid project" do
-      address = :address
-      xml = :xml
-      Project.should_receive(:fetch_xml).and_return(xml)
-      attributes = {'name' => "testProject", 'activity' => "Sleeping", 'lastBuildTime' => "unknown",
-                    'lastBuildLabel' => "1.0", 'lastBuildStatus' => "Success", 'webUrl' => "http://www.com"}
-      doc = OpenStruct.new
-      element = OpenStruct.new(:attributes => attributes)
-      elements = OpenStruct.new
-      elements.should_receive(:each).and_yield(element)
-      REXML::Document.should_receive(:new).and_return(doc)
-      Project.fetch(address)
-    end
-  
 end

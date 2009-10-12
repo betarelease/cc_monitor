@@ -12,8 +12,7 @@ class CCTray
         project = OpenStruct.new(element.attributes)
       else
         project = Project.find_or_create(element)
-        project.last_successful_build = difference(project.last_successful_build)
-        project.last_failed_build = difference(project.last_failed_build)
+        project.record!(element)
       end
       projects << project
     end
@@ -28,7 +27,7 @@ private
     begin 
       Net::HTTP.start(url.host, url.port) do |http|
         req = Net::HTTP::Get.new(url.path)
-        req.basic_auth 'thoughtworks', 'th0ughtw0rks'
+        req.basic_auth USERNAME, PASSWORD if AUTH
         response = http.request(req)
         case response
           when Net::HTTPSuccess     then response.body
@@ -56,13 +55,5 @@ EOF
     doc.elements.each('Projects/Project') do |element|
       yield element
     end
-  end
-  
-  
-  def difference(recorded_time)
-    seconds = (Time.now - recorded_time.to_i).to_i
-    minutes = seconds/60
-    hours = minutes/60
-  end
-  
+  end  
 end
