@@ -2,7 +2,7 @@
 #cc java example http://cruisecontrol:8080/dashboard/cctray.xml
 
 #rackspace settings
-TEST_PUBLISHER = false
+TEST_PUBLISHER = true
 
 PROJECTS = "http://cruisecontrolrb.engineering.rackspace.com/XmlStatusReport.aspx"
 AUTH = true

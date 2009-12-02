@@ -20,6 +20,12 @@ div.project {
 }
 
 div.icon { position:absolute; }
+div.stats { margin: 0.4em;}
+div.bar_chart {
+    font-size:0.5em;
+    height: 30px;
+    text-align:center;
+}
 
 .Error           { background:#882132; color:#fff; }
 .Error div.icon  { 

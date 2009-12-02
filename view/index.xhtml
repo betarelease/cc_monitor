@@ -31,20 +31,15 @@ Bar chart with inline data: <span class="inlinebar">1,3,4,5,3,5</span>
 <a href="#{project.web_url}" target="_blank" title="#{project.activity}">
 <div class="project #{project.last_build_status} #{project.activity}">
   <div class="icon"> </div>
-  <div>
+  <div class="bar_chart">
     <div style="background: green;
-              width: #{project.health}%;
-              font-size:0.5em;
-              height: 30px;
-              position: absolute;">
+                width: #{project.health}%;
+                position: absolute;">
               #{project.success_count || 0 }
     </div>
     <div style="background: red;
                 width: #{100 - project.health}%;
-                font-size:0.5em;
-                height: 30px;
-                text-align:center;
-                float: right">
+                float: right;">
               #{project.failure_count || 0}  
     </div>
   </div>
