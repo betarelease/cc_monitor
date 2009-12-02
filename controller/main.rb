@@ -10,16 +10,12 @@ class MainController < Ramaze::Controller
 
   # the index action is called automatically when no other action is specified
   def index
+    
+    require 'socket'
+    local_ip_address = UDPSocket.open {|s| s.connect '64.233.187.99', 1; s.addr.last}
+    @host_url = "http://#{local_ip_address}:#{PORT}"
     @title = TITLE
     @projects = []
     @projects += CCTray.new.fetch PROJECTS
   end
-
-  # the string returned at the end of the function is used as the html body
-  # if there is no template for the action. if there is a template, the string
-  # is silently ignored
-  def notemplate
-    "there is no 'notemplate.xhtml' associated with this action"
-  end
-
 end

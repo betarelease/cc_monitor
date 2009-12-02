@@ -6,4 +6,4 @@ end
 acquire __DIR__/:controller/'*'
 acquire __DIR__/:model/'*'
 
-Ramaze.start :adapter => :webrick, :port => 9080
+Ramaze.start :adapter => :webrick, :port => PORT

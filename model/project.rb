@@ -21,6 +21,10 @@ class Project < ActiveRecord::Base
       record_failure! if last_build_status.include? "Failure"
     end
   end
+  
+  def health
+    self.success_count * 100/self.build_count
+  end
     
 private
 

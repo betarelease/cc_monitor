@@ -1,6 +1,6 @@
 require 'webrick'
 
-class Simple < WEBrick::HTTPServlet::AbstractServlet
+class TestPublisher < WEBrick::HTTPServlet::AbstractServlet
   
   RESPONSE_TYPES = {0 => :building, 1 => :sleeping, 2 => :checking_modifications}
   BUILD_STATUS = {0 => "Success", 1 => "Failure", 2 => "Failure"}
@@ -50,7 +50,7 @@ XML
 end
 
 server = WEBrick::HTTPServer.new(:Port => 3000)
-server.mount "/simple", Simple
+server.mount "/test_publisher", TestPublisher
 trap("INT"){ server.shutdown }
 
 server.start
