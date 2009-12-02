@@ -1,22 +1,24 @@
 #cc rb example   http://cruisecontrol/XmlStatusReport.aspx
 #cc java example http://cruisecontrol:8080/dashboard/cctray.xml
 
-#rackspace settings
-TEST_PUBLISHER = true
+task :setup do
+  #rackspace settings
+  TEST_PUBLISHER = false
 
-PROJECTS = "http://cruisecontrolrb.engineering.rackspace.com/XmlStatusReport.aspx"
-AUTH = true
-USERNAME = "thoughtworks"
-PASSWORD = "th0ughtw0rks"
+  PROJECTS = "http://cruisecontrolrb.engineering.rackspace.com/XmlStatusReport.aspx"
+  AUTH = true
+  USERNAME = "thoughtworks"
+  PASSWORD = "th0ughtw0rks"
 
-#test publisher settings
-if TEST_PUBLISHER
-  PROJECTS = "http://localhost:3000/test_publisher"
-  AUTH = false
+  #test publisher settings
+  if TEST_PUBLISHER
+    PROJECTS = "http://localhost:3000/test_publisher"
+    AUTH = false
+  end
+
+  TITLE    = "BLACKBOX BUILD MONITOR"
+  PORT = "9080"
 end
-
-TITLE    = "BLACKBOX BUILD MONITOR"
-PORT = "9080"
 
 namespace :db do
   namespace :migrate do
@@ -35,7 +37,7 @@ task :spec do
 end
 
 namespace :monitor do
-  task :start do
+  task :start => [:setup] do
     require 'start'
     start
   end
