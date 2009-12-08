@@ -18,6 +18,7 @@ class Project < ActiveRecord::Migration
       t.column :build_count, :integer, :default => 0, :null => false
     end
   end
+  
   def self.down
     drop_table :projects
   end

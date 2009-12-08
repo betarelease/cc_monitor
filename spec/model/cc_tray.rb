@@ -9,8 +9,4 @@ describe CCTray do
     end
   end
 
-  it "should calculate time difference" do      
-    CCTray.new.send(:difference, 2.days.ago).should == 48
-  end
-  
 end

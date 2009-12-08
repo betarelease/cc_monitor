@@ -25,15 +25,14 @@ class Project < ActiveRecord::Base
   def health
     self.success_count * 100/self.build_count
   end
+  
+  def latest_build_time
+    value = self.last_build_time || Time.now
+    value.strftime("at %I:%M%p")
+  end
     
 private
 
-  def difference(recorded_time)
-    seconds = (Time.now - recorded_time.to_i).to_i
-    minutes = seconds/60
-    hours = minutes/60
-  end
-  
   def populate(feed)
     self.last_build_time = feed.attributes['lastBuildTime']
     self.last_build_status = feed.attributes['lastBuildStatus']
@@ -44,14 +43,14 @@ private
   
   def record_failure!
     self.failure_count += 1
-    self.last_failed_build = difference(self.last_build_time)
+    self.last_failed_build = self.last_build_time
     self.build_count += 1
     save!
   end
 
   def record_success!
     self.success_count +=1
-    self.last_successful_build = difference(self.last_build_time)
+    self.last_successful_build = self.last_build_time
     self.build_count += 1
     save!
   end

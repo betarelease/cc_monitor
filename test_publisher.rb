@@ -49,8 +49,10 @@ XML
   end
 end
 
-server = WEBrick::HTTPServer.new(:Port => 3000)
-server.mount "/test_publisher", TestPublisher
-trap("INT"){ server.shutdown }
+if __FILE__ == $0
+  server = WEBrick::HTTPServer.new(:Port => 3000)
+  server.mount "/test_publisher", TestPublisher
+  trap("INT"){ server.shutdown }
 
-server.start
+  server.start
+end
