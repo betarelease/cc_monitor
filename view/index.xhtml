@@ -19,11 +19,9 @@
   </div>
   <div class="stats">
     <h2>#{project.name}</h2>
-    <p>#{project.last_build_label}(#{project.latest_build_time})</p>
-    <p>Last success at : #{project.last_successful_build.to_s} </p> 
+    <p>#{project.last_build_label}(#{project.activity})</p>
+    <p>Last success at : #{project.last_successful_build.to_s}</p> 
   </div>
-
-
 </div>
 </a>
 <?r end ?>

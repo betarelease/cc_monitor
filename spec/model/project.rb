@@ -2,6 +2,32 @@ require File.join(File.expand_path(File.dirname(__FILE__)), "../spec_helper")
 require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/project")
 
 describe Project do
+  describe "properties" do
+    it "should return sickness as opposite of health" do
+      project = Project.new(:name => "some project", 
+                            :success_count => 2,
+                            :failure_count => 8, 
+                            :build_count => 10)
+      project.sickness.should == 100 - project.health
+      
+    end
+
+    it "should return health as a percentage of success to total build count" do
+      project = Project.new(:name => "some project", 
+                            :success_count => 2,
+                            :failure_count => 8, 
+                            :build_count => 10)
+      project.health.should == 20
+    end
+    
+    it "should return health as a percentage of success to total build count" do
+      project = Project.new(:name => "some project", :last_build_time => Time.utc(2000, "jan", 1, 20, 15, 1))
+      project
+    end
+  
+
+  end
+  
   describe "find_or_create" do
     it "should save project details only for a different build label" do
       project = Project.new(:name => "some project", 
@@ -38,8 +64,6 @@ describe Project do
       end
       input_project = InputProject.new
       found_project = Project.find_or_create(input_project)
-      puts Project.count
-      puts found_project.inspect
       found_project.last_build_label.should == "previous"
       found_project.last_build_status.should == "Failure"
       found_project.last_build_time.should == Time.now.to_s

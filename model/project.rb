@@ -1,7 +1,3 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), "../vendor/activerecord-2.1.1/lib/activerecord")
-
-ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => 'db.sqlite'
-
 class Project < ActiveRecord::Base
   set_table_name 'projects'
   
@@ -24,6 +20,10 @@ class Project < ActiveRecord::Base
   
   def health
     self.success_count * 100/self.build_count
+  end
+  
+  def sickness
+    100 - health
   end
   
   def latest_build_time

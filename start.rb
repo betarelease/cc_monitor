@@ -2,6 +2,8 @@
   require File.join(File.expand_path(File.dirname(__FILE__)), ".", gem)
 end
 
+require File.join(File.expand_path(File.dirname(__FILE__)), "environment")
+
 # require all controllers and models
 acquire __DIR__/:controller/'*'
 acquire __DIR__/:model/'*'

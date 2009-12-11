@@ -3,15 +3,20 @@
 require 'config'
 
 namespace :db do
-  namespace :migrate do
-    task :reset do
-      require 'migrations/project'
-      Project.down
-      Project.up
-    end
+  desc "Setup environment"
+  task :environment do
+    load 'environment.rb'
   end
+  
+  desc "Migrate the database"
+  task :migrate => [:environment] do
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ActiveRecord::Migration.verbose = true
+    ActiveRecord::Migrator.migrate('migrations', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
+  end    
 end
 
+desc "Run all specs"
 task :spec do
   Dir.glob("spec/model/").each do |spec_name|
     spec spec_name
@@ -19,18 +24,19 @@ task :spec do
 end
 
 namespace :monitor do
-  task :clean => ['db:migrate:reset']  
-
+  desc "Start monitor"
   task :start do
     require 'start'
     start
   end
 
+  desc "Start monitor under test mode"
   task :test do
     require 'start'
     start  
   end
   
+  desc "Start test publisher for the monitor"
   task :test_publisher do
     require 'test_publisher'
     PUBLISHER_PORT = 3000
