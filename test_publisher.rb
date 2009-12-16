@@ -13,9 +13,8 @@ class TestPublisher < WEBrick::HTTPServlet::AbstractServlet
   end
   
   def do_stuff_with(request)
-    random_number = rand(2)
-    random_response = RESPONSE_TYPES[random_number]
-    status_code = BUILD_STATUS[random_number]
+    random_response = RESPONSE_TYPES[rand(2)]
+    status_code = BUILD_STATUS[rand(2)]
     xml_response = self.send(random_response, status_code)
     puts xml_response
     return 200, "text/xml", xml_response

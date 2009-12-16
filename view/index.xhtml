@@ -1,27 +1,28 @@
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery.sparkline.js"></script>
 
-<?r @projects.each do |project| ?>
-<a href="#{project.web_url}" target="_blank" title="#{project.activity}">
-<div class="project #{project.last_build_status} #{project.activity}">
-  <div class="icon"> </div>
-  <div class="bar_chart">
-    <div style="background: green;
-                width: #{project.health}%;
-                position: absolute;">
-              #{project.success_count || 0 }
+<?r @projects.each do |project|
+  activity = project.activity.delete(" ") ?>
+  <a href="#{project.web_url}" target="_blank" title="#{activity}">
+  <div class="project #{project.last_build_status} #{activity}">
+    <div class="icon"> </div>
+    <div class="bar_chart">
+      <div style="background: green;
+                  width: #{project.health}%;
+                  position: absolute;">
+                #{project.success_count || 0 }
+      </div>
+      <div style="background: red;
+                  width: #{100 - project.health}%;
+                  float: right;">
+                #{project.failure_count || 0}  
+      </div>
     </div>
-    <div style="background: red;
-                width: #{100 - project.health}%;
-                float: right;">
-              #{project.failure_count || 0}  
+    <div class="stats">
+      <h2>#{project.name}</h2>
+      <p>#{project.last_build_label}(#{activity})</p>
+      <p>Last success at : #{project.last_successful_build.to_s}</p> 
     </div>
   </div>
-  <div class="stats">
-    <h2>#{project.name}</h2>
-    <p>#{project.last_build_label}(#{project.activity})</p>
-    <p>Last success at : #{project.last_successful_build.to_s}</p> 
-  </div>
-</div>
-</a>
+  </a>
 <?r end ?>

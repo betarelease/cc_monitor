@@ -8,6 +8,10 @@ namespace :db do
     load 'environment.rb'
   end
   
+  task :create => [:environment] do
+    
+  end
+  
   desc "Migrate the database"
   task :migrate => [:environment] do
     ActiveRecord::Base.logger = Logger.new(STDOUT)

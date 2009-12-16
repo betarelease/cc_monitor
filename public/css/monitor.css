@@ -37,24 +37,12 @@ div.bar_chart {
 }
 
 .Success.Unknown,
-.Success.CheckingModifications { background:#B1FB17; color:#040302; }
+.Success.CheckingModifications { background:#2bca5b; color:#040302; }
+.Success.Sleeping              { background:#2bca5b; color:#040302; }
+.Success.Building              { background:#B1FB17; color:#040302; }
 
-.Success.Building           { background:#B1FB17; color:#040302; }
-.Success.Building div.icon  { 
-}
-
-.Success.Sleeping           { background:#2bca5b; color:#040302; }
-.Success.Sleeping div.icon  { 
-}
 
 .Failure.Unknown,
+.Failure.Sleeping              { background:#882132; color:#fff; }
 .Failure.CheckingModifications { background:#F88017; color:#fff; }
-
-.Failure.Sleeping           { background:#F88017; color:#fff; }
-
-.Failure.Sleeping div.icon  { 
-}
-
-.Failure.Building           { background:#882132; color:#fff; }
-.Failure.Building div.icon  { 
-}
+.Failure.Building              { background:#F88017; color:#fff; }

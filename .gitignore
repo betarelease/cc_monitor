@@ -1,3 +1,3 @@
 db.sqlite
 config.rb
-*.log
+database.log
