@@ -22,8 +22,9 @@ end
 
 desc "Run all specs"
 task :spec do
-  Dir.glob("spec/model/").each do |spec_name|
-    spec spec_name
+  Dir.glob("spec/model/*.rb").each do |spec_name|
+    puts "Running #{spec_name}"
+    puts `spec #{spec_name}`
   end
 end
 
@@ -42,7 +43,8 @@ namespace :monitor do
   
   desc "Start test publisher for the monitor"
   task :test_publisher do
-    require 'test_publisher'
+    require 'test/
+    test_publisher'
     PUBLISHER_PORT = 3000
     server = WEBrick::HTTPServer.new(:Port => PUBLISHER_PORT)
     server.mount "/test_publisher", TestPublisher
