@@ -26,6 +26,14 @@ class Project < ActiveRecord::Base
     100 - health
   end
   
+  def successes
+    success_count || 0
+  end
+  
+  def failures
+    failure_count || 0
+  end
+  
   def latest_build_time
     value = self.last_build_time || Time.now
     value.strftime("at %I:%M%p")

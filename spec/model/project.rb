@@ -2,7 +2,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), "../spec_helper")
 require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/project")
 
 describe Project do
-  describe "properties" do
+  describe "statistics" do
     it "should return sickness as opposite of health" do
       project = Project.new(:name => "some project", 
                             :success_count => 2,
@@ -24,7 +24,22 @@ describe Project do
       project = Project.new(:name => "some project", :last_build_time => Time.utc(2000, "jan", 1, 20, 15, 1))
       project
     end
-  
+
+    it "should 0 if success_count is nil" do
+      project = Project.new(:name => "some project", 
+                            :success_count => nil,
+                            :failure_count => 8, 
+                            :build_count => 10)
+      project.successes.should == 0
+    end  
+
+    it "should 0 if failure_count is nil" do
+      project = Project.new(:name => "some project", 
+                            :success_count => 1,
+                            :failure_count => nil, 
+                            :build_count => 10)
+      project.failures.should == 0
+    end  
 
   end
   

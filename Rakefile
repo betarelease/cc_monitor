@@ -43,8 +43,7 @@ namespace :monitor do
   
   desc "Start test publisher for the monitor"
   task :test_publisher do
-    require 'test/
-    test_publisher'
+    require 'test/test_publisher'
     PUBLISHER_PORT = 3000
     server = WEBrick::HTTPServer.new(:Port => PUBLISHER_PORT)
     server.mount "/test_publisher", TestPublisher

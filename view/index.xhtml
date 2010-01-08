@@ -10,12 +10,12 @@
       <div style="background: green;
                   width: #{project.health}%;
                   position: absolute;">
-                #{project.success_count || 0 }
+        #{project.successes}
       </div>
       <div style="background: red;
                   width: #{project.sickness}%;
                   float: right;">
-                #{project.failure_count || 0}  
+        #{project.failures}  
       </div>
     </div>
     <div class="stats">
