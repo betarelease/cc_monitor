@@ -23,8 +23,9 @@ class TestPublisher < WEBrick::HTTPServlet::AbstractServlet
   def building(last_build_status)
     building = <<XML
     <Projects>
-    <Project name="test project" activity="Building" 
-    lastBuildStatus="#{last_build_status}" lastBuildLabel="#{rand(100)}" lastBuildTime="unknown" webUrl="http://www.com"/>
+      <Project name="test project" activity="Building" 
+               lastBuildStatus="#{last_build_status}" lastBuildLabel="#{rand(100)}" 
+               lastBuildTime="unknown" webUrl="http://www.com"/>
     </Projects>
 XML
   end
@@ -32,8 +33,9 @@ XML
   def sleeping(last_build_status)
     building = <<XML
     <Projects>
-    <Project name="test project" activity="Sleeping" 
-    lastBuildStatus="#{last_build_status}" lastBuildLabel="#{rand(100)}" lastBuildTime="unknown" webUrl="http://www.com"/>
+      <Project name="test project" activity="Sleeping" 
+               lastBuildStatus="#{last_build_status}" lastBuildLabel="#{rand(100)}" 
+               lastBuildTime="unknown" webUrl="http://www.com"/>
     </Projects>
 XML
   end
@@ -41,8 +43,9 @@ XML
   def checking_modifications(last_build_status)
     building = <<XML
     <Projects>
-    <Project name="test project" activity="Checking Modifications" 
-    lastBuildStatus="#{last_build_status}" lastBuildLabel="#{rand(100)}" lastBuildTime="unknown" webUrl="http://www.com"/>
+      <Project name="test project" activity="Checking Modifications" 
+               lastBuildStatus="#{last_build_status}" lastBuildLabel="#{rand(100)}" 
+               lastBuildTime="unknown" webUrl="http://www.com"/>
     </Projects>
 XML
   end

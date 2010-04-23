@@ -5,9 +5,15 @@ body {
 }
 
 a  { cursor: pointer; }
-h1 { font-size: 1em; 
-     color: #fff; 
-     text-align: center;
+h1 { 
+  font-size: 1em; 
+  color: #fff; 
+  text-align: center;
+}
+h2 { 
+  font-size: 1em; 
+  color: #fff; 
+  text-align: center;
 }
 
 div.project {
@@ -29,13 +35,13 @@ div.stats {
 
 div.bar_chart {
   font-size: 0.5em;
-  height: 30px;
+  height: 20px;
   text-align:center;
 }
 
 div.bar_chart_today {
   font-size: 0.5em;
-  height: 30px;
+  height: 20px;
   text-align: center;
 }
 
@@ -49,8 +55,9 @@ div.failure {
   float: right;  
 }
 
-
-.Error           { background:#882132; color:#fff; }
+.Error { 
+  background:#882132; color:#fff; 
+}
 .Error div.icon  { 
   width:59px; 
   height:60px; 
@@ -60,12 +67,30 @@ div.failure {
 }
 
 .Success.Unknown,
-.Success.CheckingModifications { background:#2bca5b; color:#040302; }
-.Success.Sleeping              { background:#2bca5b; color:#040302; }
-.Success.Building              { background:#B1FB17; color:#040302; }
+.Success.CheckingModifications { 
+  background: #2bca5b; 
+  color: #040302; 
+}
+
+.Success.Sleeping { 
+  background: #2bca5b; 
+  color: #040302; 
+}
+
+.Success.Building { 
+  background: #B1FB17; 
+  color: #040302; 
+}
 
 
 .Failure.Unknown,
 .Failure.Sleeping              { background:#882132; color:#fff; }
 .Failure.CheckingModifications { background:#F88017; color:#fff; }
 .Failure.Building              { background:#F88017; color:#fff; }
+
+
+#.graph {  
+  width: 500px;
+  height: 300px;
+  border: 1px solid #aaa;  
+}  

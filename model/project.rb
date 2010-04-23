@@ -50,11 +50,11 @@ class Project < ActiveRecord::Base
   end
 
   def week_success
-    Statistic.week(self)
+    Statistic.week_success(self) * 100/Statistic.week(self)
   end
     
   def week_failure
-    Statistic.week(self)
+    Statistic.week_failure(self) * 100/Statistic.week(self)
   end
     
 private

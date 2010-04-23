@@ -22,17 +22,15 @@ class Statistic < ActiveRecord::Base
   end
   
   def self.week(project)
-    self.count(:conditions => {:project_id => project.id, :date => last_week})
+    self.count(:conditions => ['project_id = ? AND date >= ? AND date <= ?', project.id, Date.today - 7, Date.today])
   end
 
   def self.week_success(project)
-    last_week = (Date.today..(Date.today-7)).to_s(:db)
-    self.count(:conditions => {:project_id => project.id, :result => true, :date => last_week})
+    self.count(:conditions => ['project_id = ? AND date >= ? AND date <= ? AND result = "t"', project.id, Date.today - 7, Date.today])
   end
   
   def self.week_failure(project)
-    last_week = (Date.today..(Date.today-7)).to_s(:db)
-    self.count(:conditions => {:project_id => project.id, :result => false, :date => last_week})
+    self.count(:conditions => ['project_id = ? AND date >= ? AND date <= ? AND result = "f"', project.id, Date.today - 7, Date.today])
   end
   
 end

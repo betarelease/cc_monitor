@@ -1,0 +1,62 @@
+<script type="text/javascript" src="/js/raphael-min.js"></script>
+<script type="text/javascript" src="/js/g.raphael-min.js"></script>
+<script type="text/javascript" src="/js/g.bar-min.js"></script>
+<script type="text/javascript" src="/js/raphael.cylindergraph.0.1.js"></script>
+
+  <div id="project_#{@project.id}">
+  </div>
+  <input type="hidden" id="health_#{@project.id}" name="health" value="#{@project.health}" />
+  <input type="hidden" id="sickness_#{@project.id}" name="sickness" value="#{@project.sickness}" />
+
+  <input type="hidden" id="today_success_#{@project.id}" name="today_success" value="#{@project.today_success}" />
+  <input type="hidden" id="today_failure_#{@project.id}" name="today_failure" value="#{@project.today_failure}" />
+
+  <input type="hidden" id="week_success_#{@project.id}" name="week_success" value="#{@project.week_success}" />
+  <input type="hidden" id="week_failure_#{@project.id}" name="week_failure" value="#{@project.week_failure}" />
+  
+<script type="text/javascript">
+  var drawGraph = function(element){
+     var r = Raphael("project_" + element),
+       fin = function () {
+           this.flag = r.g.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
+       },
+       fout = function () {
+           this.flag.animate({opacity: 0}, 300, function () {
+              this.remove();
+             }
+           );
+       };
+      var success = [ $('#health_' + element).val(), 
+                      $('#today_success_' + element).val(), 
+                      $('#week_success_' + element).val()
+                    ];
+      var failure = [ $('#sickness_' + element).val(), 
+                      $('#today_failure_' + element).val(), 
+                      $('#week_failure_' + element).val()
+                    ];
+      var chart = r.g.barchart(10, 10, 300, 180, [success, failure], {stacked: true}).hover(fin, fout);
+   };
+    new drawGraph( #{@project.id} );
+    
+    
+  var cylinderGraph = function(element) {
+      var success = [
+        ["all_time", $('#health_' + element).val()], 
+        ["today", $('#today_success_' + element).val()], 
+        ["week", $('#week_success_' + element).val()]
+      ];
+
+      //     var failure = [$('#sickness_' + element).val(), $('#today_failure_' + element).val(), $('#week_failure_' + element).val()];
+
+      var paper = new Raphael('project_' + element, 500, 300);
+      paper.cylinderGraph(success, { easingType: 'bounce',
+                                     animationLength: 3000,
+                                     labelsColor: 'white'
+                                   }
+      );
+
+  };
+  new cylinderGraph(#{@project.id});
+    
+</script>
+
