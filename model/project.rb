@@ -1,6 +1,8 @@
 class Project < ActiveRecord::Base
   set_table_name 'projects'
   
+  has_many :statistic
+  
   def self.find_or_create(feed)
     values = {}
     feed.attributes.each do |name, value|
@@ -38,6 +40,22 @@ class Project < ActiveRecord::Base
     value = self.last_build_time || Time.now
     value.strftime("at %I:%M%p")
   end
+  
+  def today_success
+    Statistic.today_success(self) * 100/Statistic.today(self)
+  end
+    
+  def today_failure
+    Statistic.today_failure(self) * 100/Statistic.today(self)
+  end
+
+  def week_success
+    Statistic.week(self)
+  end
+    
+  def week_failure
+    Statistic.week(self)
+  end
     
 private
 
@@ -54,6 +72,7 @@ private
     self.last_failed_build = self.last_build_time
     self.build_count += 1
     save!
+    Statistic.create!(:project => self, :date => Date.today, :result => true)
   end
 
   def record_success!
@@ -61,6 +80,7 @@ private
     self.last_successful_build = self.last_build_time
     self.build_count += 1
     save!
+    Statistic.create!(:project => self, :date => Date.today, :result => false)
   end
   
 end

@@ -50,6 +50,6 @@ namespace :monitor do
     trap("INT"){ server.shutdown }
 
     puts "Starting Test Publisher on port: #{PUBLISHER_PORT}"
-    server.start    
+    server.start
   end
 end

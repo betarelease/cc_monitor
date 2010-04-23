@@ -1,5 +1,7 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), "../spec_helper")
+require File.join(File.expand_path(File.dirname(__FILE__)), "../../vendor/activerecord-2.1.1/lib/activerecord")
 require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/project")
+
 
 describe Project do
   describe "statistics" do
@@ -39,8 +41,8 @@ describe Project do
                             :failure_count => nil, 
                             :build_count => 10)
       project.failures.should == 0
-    end  
-
+    end
+    
   end
   
   describe "find_or_create" do

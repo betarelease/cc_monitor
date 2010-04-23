@@ -1,31 +1,54 @@
 body {
-    margin:1.8em 0 0 4em;
-    background:#000e0e url(/images/bg_repeat.png);
-    font:30px "Trebuchet MS",trebuchet,helvetica,arial,sans-serif;
+    margin: 1.8em 0 0 4em;
+    background: #000e0e url(/images/bg_repeat.png);
+    font: 30px "Trebuchet MS",trebuchet,helvetica,arial,sans-serif;
 }
 
-a   { cursor:pointer; }
-h1  { font-size:1em; color: #fff; text-align:center;}
-h2  { font-size:0.9em; }
-p   { font-size:0.5em; } 
+a  { cursor: pointer; }
+h1 { font-size: 1em; 
+     color: #fff; 
+     text-align: center;
+}
 
 div.project {
-    color:#fff;
-    text-align:center;
-    width:300px;
-    float:left;
-    height:180px;
-    margin:0.2em;
-    position:relative;
+  color: #fff;
+  text-align: center;
+  width: 300px;
+  float: left;
+  height: 180px;
+  position: relative;
 }
 
-div.icon { position:absolute; }
-div.stats { margin: 0.4em;}
-div.bar_chart {
-    font-size:0.5em;
-    height: 30px;
-    text-align:center;
+div.icon { 
+  position:absolute; 
 }
+
+div.stats { 
+  font-size: 0.5em;
+}
+
+div.bar_chart {
+  font-size: 0.5em;
+  height: 30px;
+  text-align:center;
+}
+
+div.bar_chart_today {
+  font-size: 0.5em;
+  height: 30px;
+  text-align: center;
+}
+
+div.success {
+  background: green;
+  position: absolute;  
+}
+
+div.failure {
+  background: red;
+  float: right;  
+}
+
 
 .Error           { background:#882132; color:#fff; }
 .Error div.icon  { 
