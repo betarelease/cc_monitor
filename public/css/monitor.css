@@ -1,15 +1,19 @@
 body {
-    margin: 1.8em 0 0 4em;
-    background: #000e0e url(/images/bg_repeat.png);
-    font: 30px "Trebuchet MS",trebuchet,helvetica,arial,sans-serif;
+  margin: 1.8em 0 0 4em;
+  background: #000e0e url(/images/bg_repeat.png);
+  font: 30px "Trebuchet MS", trebuchet, helvetica, arial, sans-serif;
 }
 
-a  { cursor: pointer; }
+a { 
+  cursor: pointer; 
+}
+
 h1 { 
   font-size: 1em; 
   color: #fff; 
   text-align: center;
 }
+
 h2 { 
   font-size: 1em; 
   color: #fff; 
@@ -36,12 +40,11 @@ div.stats {
 div.bar_chart {
   font-size: 0.5em;
   height: 20px;
-  text-align:center;
+  z-index: 1;
 }
 
-div.bar_chart_today {
-  font-size: 0.5em;
-  height: 20px;
+div.bar_chart span {
+  z-index: 1;
   text-align: center;
 }
 
@@ -52,27 +55,25 @@ div.success {
 
 div.failure {
   background: red;
-  float: right;  
+  float: right;
 }
 
 .Error { 
-  background:#882132; color:#fff; 
-}
-.Error div.icon  { 
-  width:59px; 
-  height:60px; 
-  top:-25px; 
-  right:-25px; 
-  background:url(/images/icon_success_building.gif) no-repeat; 
+  background: #882132; 
+  color:#fff; 
 }
 
+.Error div.icon  { 
+  width: 59px; 
+  height: 60px; 
+  top: -25px; 
+  right: -25px; 
+  background: url(/images/icon_success_building.gif) no-repeat; 
+}
+
+.Success.Sleeping,
 .Success.Unknown,
 .Success.CheckingModifications { 
-  background: #2bca5b; 
-  color: #040302; 
-}
-
-.Success.Sleeping { 
   background: #2bca5b; 
   color: #040302; 
 }
@@ -82,15 +83,20 @@ div.failure {
   color: #040302; 
 }
 
-
 .Failure.Unknown,
-.Failure.Sleeping              { background:#882132; color:#fff; }
-.Failure.CheckingModifications { background:#F88017; color:#fff; }
-.Failure.Building              { background:#F88017; color:#fff; }
+.Failure.Sleeping { 
+  background: #882132;
+  color: #fff; 
+}
 
+.Failure.Building,
+.Failure.CheckingModifications { 
+  background: #F88017; 
+  color: #fff; 
+}
 
 #.graph {  
   width: 500px;
   height: 300px;
-  border: 1px solid #aaa;  
+  border: 1px solid red; 
 }  
