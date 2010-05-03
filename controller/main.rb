@@ -20,5 +20,6 @@ class MainController < Ramaze::Controller
   def graph
     @title = TITLE
     @project = Project.find(1)
+    @projects = Project.find(:all)
   end
 end

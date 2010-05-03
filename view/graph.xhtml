@@ -1,43 +1,48 @@
 <script type="text/javascript" src="/js/jquery.simplemodal-1.3.5.js"></script>
-
 <script language="javascript" type="text/javascript" src="/js/flot-0.6/flot/jquery.flot.js"></script> 
 <script language="javascript" type="text/javascript" src="/js/flot-0.6/flot/jquery.flot.stack.js"></script>
 
-<a id="flot_graph" href="#" >FLot Graph</a>
-<div id="graph_#{@project.id}" class="graph" style="width:600px;height:300px;"/>
+<?r @projects.each do |project| ?>
+  <a class="flot_graph" href="#" >FLot Graph #{project.id}</a>
+  <div id="graph_#{project.id}" class="graph" style="width:600px;height:300px;"/>
 
-<input type="hidden" id="health_#{@project.id}" name="health" value="#{@project.health}" />
-<input type="hidden" id="sickness_#{@project.id}" name="sickness" value="#{@project.sickness}" />
+  <input type="hidden" id="health_#{project.id}" name="health" value="#{project.health}" />
+  <input type="hidden" id="sickness_#{project.id}" name="sickness" value="#{project.sickness}" />
 
-<input type="hidden" id="today_success_#{@project.id}" name="today_success" value="#{@project.today_success}" />
-<input type="hidden" id="today_failure_#{@project.id}" name="today_failure" value="#{@project.today_failure}" />
+  <input type="hidden" id="today_success_#{project.id}" name="today_success" value="#{project.today_success}" />
+  <input type="hidden" id="today_failure_#{project.id}" name="today_failure" value="#{project.today_failure}" />
 
-<input type="hidden" id="week_success_#{@project.id}" name="week_success" value="#{@project.week_success}" />
-<input type="hidden" id="week_failure_#{@project.id}" name="week_failure" value="#{@project.week_failure}" />
-  
+  <input type="hidden" id="week_success_#{project.id}" name="week_success" value="#{project.week_success}" />
+  <input type="hidden" id="week_failure_#{project.id}" name="week_failure" value="#{project.week_failure}" />
+<?r end ?>
+
 <script type="text/javascript">   
    jQuery(function ($) {
-     $('#flot_graph').click(function(e){
-        var today = [$('#today_success_1').val(),
-                    $('#today_failure_1').val()];
-        var week = [ $('#week_success_1').val(),
-                     $('#week_failure_1').val()];
-        var all_time = [ $('#health_1').val(),
-                         $('#sickness_1').val()];
-                     
-        var stack = 0, bars = true, lines = false, steps = false;
-        
-        function plotWithOptions() {
-            $.plot($("#graph_1"), [ today, week, all_time ], {
-                series: {
-                    stack: stack,
-                    lines: { show: lines, steps: steps },
-                    bars: { show: bars, barWidth: 0.6 }
-                }
-            });
+     $('.flot_graph').click(function(e){
+        function plotWithOptions(project_id) {
+          var graphDiv = $("#graph_" + project_id);
+          // var today = [$('#today_success_' + project_id).val(),
+          //             $('#today_failure_' + project_id).val()];
+          // var week = [ $('#week_success_' + project_id).val(),
+          //              $('#week_failure_' + project_id).val()];
+          // var all_time = [ $('#health_' + project_id).val(),
+          //                  $('#sickness_' + project_id).val()];
+          var today = [50, 70];
+          var week = [70, 50];
+          var all_time = [20, 30];
+          var stack = 0, bars = true, lines = false, steps = false;
+          $.plot(graphDiv, [ today, week, all_time ], {
+            series: {
+              stack: stack,
+              lines: { show: lines, steps: steps },
+              bars:  { show: bars, barWidth: 0.6 }
+            }
+          });
         }
-        plotWithOptions();
-        $('#graph_1').modal({opacity: 100});
+        $(".graph").each(function(index, element){
+          plotWithOptions(index);
+          e.modal();
+        });
         return false;
       })
      });

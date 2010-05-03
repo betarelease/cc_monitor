@@ -36,20 +36,22 @@ namespace :monitor do
   end
 
   desc "Start monitor under test mode"
-  task :test do
+  task :test => [:test_publisher] do
     require 'start'
     start  
   end
   
   desc "Start test publisher for the monitor"
   task :test_publisher do
-    require 'test/test_publisher'
-    PUBLISHER_PORT = 3000
-    server = WEBrick::HTTPServer.new(:Port => PUBLISHER_PORT)
-    server.mount "/test_publisher", TestPublisher
-    trap("INT"){ server.shutdown }
+    fork do
+      require 'test/test_publisher'
+      PUBLISHER_PORT = 3000
+      server = WEBrick::HTTPServer.new(:Port => PUBLISHER_PORT)
+      server.mount "/test_publisher", TestPublisher
+      trap("INT"){ server.shutdown }
 
-    puts "Starting Test Publisher on port: #{PUBLISHER_PORT}"
-    server.start
+      puts "Starting Test Publisher on port: #{PUBLISHER_PORT}"
+      server.start
+    end
   end
 end
