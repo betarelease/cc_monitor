@@ -1,5 +1,4 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), "../spec_helper")
-require File.join(File.expand_path(File.dirname(__FILE__)), "../../vendor/activerecord-2.1.1/lib/activerecord")
 require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/project")
 
 
