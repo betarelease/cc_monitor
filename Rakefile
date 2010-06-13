@@ -1,19 +1,15 @@
 #cc rb example   http://cruisecontrol/XmlStatusReport.aspx
 #cc java example http://cruisecontrol:8080/dashboard/cctray.xml
-require 'config'
+desc "Setup environment"
+task :environment do
+  require 'environment'
+end
 
 namespace :db do
-  desc "Setup environment"
-  task :environment do
-    load 'environment.rb'
-  end
-  
-  task :create => [:environment] do
-    
-  end
+  task :create => [ :environment ]
   
   desc "Migrate the database"
-  task :migrate => [:environment] do
+  task :migrate => [ :environment ] do
     ActiveRecord::Base.logger = Logger.new(STDOUT)
     ActiveRecord::Migration.verbose = true
     ActiveRecord::Migrator.migrate('migrations', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
@@ -21,7 +17,7 @@ namespace :db do
 end
 
 desc "Run all specs"
-task :spec do
+task :spec => [ :environment ] do
   Dir.glob("spec/model/*.rb").each do |spec_name|
     puts "Running #{spec_name}"
     puts `spec #{spec_name}`
@@ -30,19 +26,19 @@ end
 
 namespace :monitor do
   desc "Start monitor"
-  task :start do
+  task :start => [ :environment ] do
     require 'start'
     start
   end
 
   desc "Start monitor under test mode"
-  task :test => [:test_publisher] do
+  task :test => [ :test_publisher ] do
     require 'start'
     start  
   end
   
   desc "Start test publisher for the monitor"
-  task :test_publisher do
+  task :test_publisher => [ :environment ] do
     fork do
       require 'test/test_publisher'
       PUBLISHER_PORT = 3000

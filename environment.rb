@@ -4,5 +4,9 @@
   require File.join(File.expand_path(File.dirname(__FILE__)), ".", gem)
 end
 
-ActiveRecord::Base.establish_connection(YAML::load(File.open('database.yml')))
+require File.join(File.expand_path(File.dirname(__FILE__)), "config")
+
+database_file = File.join(File.expand_path(File.dirname(__FILE__)), "database.yml")
+ActiveRecord::Base.establish_connection(YAML::load(File.open(database_file)))
+
 ActiveRecord::Base.logger = Logger.new(File.open('database.log', 'a'))

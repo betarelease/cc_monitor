@@ -1,4 +1,5 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), "../spec_helper")
+require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/project")
 require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/statistic")
 
 describe Statistic do
@@ -8,9 +9,9 @@ describe Statistic do
                           :last_build_status => "Success")
     project.save!
     result = project.last_build_status == "Success"
-    statistic = Statistic.new(:project => project, :date => today, :result => result)
+    statistic = Statistic.new(:project => project, :date => Date.today, :result => result)
     statistic.save!
     
-    project.today_success.should == 1
+    project.today_success.should == 100
   end
 end

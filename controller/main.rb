@@ -14,7 +14,9 @@ class MainController < Ramaze::Controller
     @host_url = "http://#{local_ip_address}:#{PORT}"
     @title = TITLE
     @projects = []
-    @projects += CCTray.new.fetch PROJECTS
+    PROJECTS.each do |projects|
+      @projects += CCTray.new.fetch projects
+    end
   end
   
   def graph

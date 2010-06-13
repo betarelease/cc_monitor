@@ -27,6 +27,7 @@ div.project {
   float: left;
   height: 180px;
   position: relative;
+  margin: 20px;
 }
 
 div.icon { 
