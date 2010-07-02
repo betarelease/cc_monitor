@@ -1,5 +1,7 @@
 #cc rb example   http://cruisecontrol/XmlStatusReport.aspx
 #cc java example http://cruisecontrol:8080/dashboard/cctray.xml
+
+task :default => ["spec"]
 desc "Setup environment"
 task :environment do
   require 'environment'
