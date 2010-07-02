@@ -1,5 +1,5 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), "../spec_helper")
-require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/project")
+require File.join( File.expand_path( File.dirname( __FILE__ ) ), "../spec_helper" )
+require File.join( File.expand_path( File.dirname( __FILE__ ) ), "../../model/project" )
 
 describe Project do
   describe "statistics" do
@@ -47,9 +47,9 @@ describe Project do
                      'lastBuildLabel' => "1234",
                      'activity' => "Sleeping",
                      'webUrl' => "http://www.com",
-                     'name' => "some project"}
+                     'name' => "some project" }
       
-      feed = OpenStruct.new({ "attributes" => attributes})
+      feed = OpenStruct.new( { "attributes" => attributes } )
       project = Project.find_or_create( feed )
       attributes = { 'lastBuildTime' => Time.now,
                      'lastBuildStatus' => "Failure",
@@ -57,7 +57,7 @@ describe Project do
                      'activity' => "Sleeping",
                      'webUrl' => "http://www.com" }
       
-      feed = OpenStruct.new({ "attributes" => attributes})
+      feed = OpenStruct.new( { "attributes" => attributes} )
       project.record!( feed )
       project.record!( feed )
       project.build_count.should == 2
@@ -69,9 +69,9 @@ describe Project do
                      'lastBuildLabel' => "1234",
                      'activity' => "Sleeping",
                      'webUrl' => "http://www.com",
-                     'name' => "some project"}
+                     'name' => "some project" }
       
-      feed = OpenStruct.new({ "attributes" => attributes})
+      feed = OpenStruct.new( { "attributes" => attributes } )
       project = Project.find_or_create( feed )
       attributes = { 'lastBuildTime' => Time.now,
                      'lastBuildStatus' => "CheckingModifications",
@@ -79,7 +79,7 @@ describe Project do
                      'activity' => "Sleeping",
                      'webUrl' => "http://www.com" }
       
-      feed = OpenStruct.new({ "attributes" => attributes})
+      feed = OpenStruct.new( { "attributes" => attributes } )
       project.record!( feed )
       project.record!( feed )
       project.build_count.should == 1
