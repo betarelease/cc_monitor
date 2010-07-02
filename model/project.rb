@@ -42,31 +42,20 @@ class Project < ActiveRecord::Base
   end
   
   def today_success
-    Statistic.today_success( self ) * 100/( today_count )
+    count = statistic.select{ |s| s.result == true && s.date == Date.today }.size
+    number = count * 100/today_count
   end
     
   def today_failure
-    Statistic.today_failure( self ) * 100/( today_count )
+    count = statistic.select{ |s| s.result == false && s.date == Date.today }.size
+    number = count * 100/today_count
   end
 
-  def week_success
-    Statistic.week_success( self ) * 100/week_count
-  end
-    
-  def week_failure
-    Statistic.week_failure( self ) * 100/week_count
-  end
-  
   def today_count
-    today_count = Statistic.today( self )
+    today_count = statistic.select{ |s| s.date == Date.today }.size
     today_count = today_count == 0 ? 100 : today_count
   end
   
-  def week_count
-    week_count = Statistic.week( self )
-    week_count = week_count == 0 ? 100 : week_count
-  end    
-    
 private
 
   def populate( feed )
@@ -81,16 +70,16 @@ private
     self.failure_count += 1
     self.last_failed_build = self.last_build_time
     self.build_count += 1
+    self.statistic << Statistic.new( :date => Date.today, :result => false )
     save!
-    Statistic.create!( :project => self, :date => Date.today, :result => false )
   end
 
   def record_success!
     self.success_count +=1
     self.last_successful_build = self.last_build_time
     self.build_count += 1
+    self.statistic << Statistic.new( :date => Date.today, :result => true )
     save!
-    Statistic.create!( :project => self, :date => Date.today, :result => true )
   end
   
 end
