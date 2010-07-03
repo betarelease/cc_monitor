@@ -7,17 +7,18 @@ CC Monitor provides a big visible display which can be projected to the whole de
 
 Currently it can display information that is part of the xml file. Apart from that it also displays the progress over a period of time to indicate how healthy the application has been. 
 
-Features to come:
-1. Show Meaningful error when CC Monitor cannot connect to Build Machine
-2. Add rspec testing to CC Monitor
-3. Add configuration support for rss feeds
-4. Add rack and activerecord gems to the install
+Features:
+1. Shows meaningful error when CC Monitor cannot connect to Build Machine
+2. Bacon tested 
+3. configuration support for rss feeds
+4. Added rack and activerecord gems to the install
 5. Better pictures and css to indicate build health
-6. Adding graphical display for health of application over time
-7. Resetting graphs daily
-8. Adding audible indications to the monitor
-9. Marking fix owners for broken builds
-and many more....
+6. Added graphical display for health of application over time
+7. Themes
+CC Monitor displays nice activity based images to make watching the builds more fun. By default it comes with a theme randomizer that shows these images based on the date. But can be customized to only show images based on the team's theme.
+Custom themes can be added by editing only a few stylesheet files.
+(The team idea shamelessly stolen from cc_dashboard. ;P)
+
 
 USAGE--
 
@@ -27,8 +28,13 @@ Type 'rake monitor:clean' - to setup the database
 then type 
 'rake monitor:start'
 
+DEVELOPMENT--
+'rake monitor:test' starts a random feed publisher along with the monitor thus allowing rapid disconnected development if you would like to contribute.
+
+* Features added recently
 
 Features to come:
-
-* Jquery sparklines support
-* google chart api
+1. Resetting graphs daily
+2. Adding audible indications to the monitor
+3. Marking fix owners for broken builds
+and many more....
