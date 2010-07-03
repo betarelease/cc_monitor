@@ -1,16 +1,53 @@
-/* 'hudson' theme styles */
 
-.Error { background: #882132; color: #fff; }
+.Error           { background:#882132; color:#fff; }
+.Error div.icon  { 
+  width:59px; 
+  height:60px; 
+  top:-25px; 
+  right:-25px; 
+  background:url(/images/icon_success_building.gif) no-repeat; 
+}
 
-.Failure.Building { background: #ff9933 url(/images/themes/hudson/failure/building.gif) no-repeat 5px 5px; color: #fff; }
-.Failure.CheckingModifications { background: #882132 url(/images/themes/hudson/failure/checking.gif) no-repeat 5px 0; color: #fff; }
+.Success.Unknown,
+.Success.CheckingModifications { background:#B1FB17; color:#040302; }
+
+.Success.Sleeping           { background:#2bca5b; color:#040302; }
+
+.Success.Sleeping div.icon  { 
+  width:76px; 
+  height:87px; 
+  top:-55px; 
+  right:-25px;
+  background:url(/images/icon_success_sleeping.gif) no-repeat; 
+}
 
 .Failure.Unknown,
-.Failure.Sleeping { background: #882132 url(/images/themes/hudson/failure/unknown.gif) no-repeat 5px 0; color: #fff; }
+.Failure.CheckingModifications { background:#F88017; color:#fff; }
 
-.Success.Building { background: #ff9933 url(/images/themes/hudson/success/building.gif) no-repeat 5px 5px; color: #040302; }
-.Success.Sleeping,
-.Success.Unknown,
-.Success.CheckingModifications { background: #2bca5b; color: #040302; }
+.Failure.Sleeping           { background:#882132; color:#fff; }
 
-.Success.Pending { background: #2bca5b; color: #040302; }
+.Failure.Sleeping div.icon  { 
+  width:75px; 
+  height:76px; 
+  top:-45px; 
+  right:-25px; 
+  background:url(/images/themes/hudson/failure/building.gif) no-repeat; 
+}
+
+.Success.Building           { background:#2bca5b; color:#040302; }
+.Success.Building div.icon  { 
+  width:59px; 
+  height:60px; 
+  top:-25px; 
+  right:-25px; 
+  background:url(/images/themes/hudson/success/building.gif) no-repeat; 
+}
+
+.Failure.Building           { background:#882132; color:#fff; }
+.Failure.Building div.icon  { 
+  width:60px; 
+  height:59px; 
+  top:-25px; 
+  right:-25px; 
+  background:url(/images/themes/hudson/failure/building.gif) no-repeat; 
+}
