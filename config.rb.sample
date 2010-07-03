@@ -4,7 +4,8 @@
 # PROJECTS = [ "http://url1:3333/XmlStatusReport.aspx",
 #              "http://url2:3333/XmlStatusReport.aspx"  ]
 # AUTH = false
-
 # required only when AUTH is true
 # USERNAME = "username"
 # PASSWORD = "password"
+
+# THEMES = ['doom', 'icons', 'hudson', 'smiley']

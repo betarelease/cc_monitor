@@ -12,6 +12,8 @@ class MainController < Ramaze::Controller
     require 'socket'
     local_ip_address = UDPSocket.open {|s| s.connect '64.233.187.99', 1; s.addr.last}
     @host_url = "http://#{local_ip_address}:#{PORT}"
+    theme_index = Date.today.day % THEMES.size
+    @theme = THEMES[ theme_index ]
     @title = TITLE
     @projects = []
     PROJECTS.each do |projects|
