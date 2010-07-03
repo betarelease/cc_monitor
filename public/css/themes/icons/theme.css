@@ -5,7 +5,7 @@
   height:60px; 
   top:-25px; 
   right:-25px; 
-  background:url(/images/icon_success_building.gif) no-repeat; 
+  background:url(/images/icons/success/building.gif) no-repeat; 
 }
 
 .Success.Unknown,
@@ -18,7 +18,7 @@
   height:87px; 
   top:-55px; 
   right:-25px;
-  background:url(/images/icon_success_sleeping.gif) no-repeat; 
+  background:url(/images/themes/icons/success/sleeping.gif) no-repeat; 
 }
 
 .Failure.Unknown,
@@ -31,7 +31,7 @@
   height:76px; 
   top:-45px; 
   right:-25px; 
-  background:url(/images/icon_failure_sleeping.gif) no-repeat; 
+  background:url(/images/themes/icons/failure/sleeping.gif) no-repeat; 
 }
 
 .Success.Building           { background:#2bca5b; color:#040302; }
@@ -40,7 +40,7 @@
   height:60px; 
   top:-25px; 
   right:-25px; 
-  background:url(/images/icon_success_building.gif) no-repeat; 
+  background:url(/images/themes/icons/success/building.gif) no-repeat; 
 }
 
 .Failure.Building           { background:#882132; color:#fff; }
@@ -49,5 +49,5 @@
   height:59px; 
   top:-25px; 
   right:-25px; 
-  background:url(/images/icon_failure_building.gif) no-repeat; 
+  background:url(/images/themes/icons/failure/building.gif) no-repeat; 
 }
