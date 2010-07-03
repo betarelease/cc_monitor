@@ -1,0 +1,16 @@
+/* 'doom' theme styles */
+
+.Error { background: #882132; color: #fff; }
+
+.Failure.Building { background: #ff9933 url(/images/themes/doom/failure/building.gif) no-repeat 40px 40px; color: #fff; }
+.Failure.CheckingModifications { background: #882132 url(/images/themes/doom/failure/checking.gif) no-repeat 40px 0; color: #fff; }
+
+.Failure.Unknown,
+.Failure.Sleeping { background: #882132 url(/images/themes/doom/failure/unknown.gif) no-repeat 40px 0; color: #fff; }
+
+.Success.Building { background: #ff9933 url(/images/themes/doom/success/building.gif) no-repeat 40px 40px; color: #040302; }
+.Success.Sleeping,
+.Success.Unknown,
+.Success.CheckingModifications { background: #2bca5b; color: #040302; }
+
+.Success.Pending { background: #2bca5b; color: #040302; }
