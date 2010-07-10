@@ -11,6 +11,6 @@
 # the same configuration.
 
 require 'start'
-Ramaze.trait[:essentials].delete Ramaze::Adapter
+Ramaze.trait[ :essentials ].delete Ramaze::Adapter
 Ramaze.start :force => true
 run Ramaze::Adapter::Base

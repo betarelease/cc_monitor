@@ -1,9 +1,20 @@
 /* these colors are replaced by themes */
 
-.Error { 
-  background: #882132; 
-  color:#fff; 
-}
+.Error { background: #882132; color:#fff; }
+
+.Failure.Building,
+.Failure.CheckingModifications { background: #F88017; color: #fff; }
+
+.Failure.Unknown,
+.Failure.Sleeping { background: #882132; color: #fff; }
+
+.Success.Building { background: #B1FB17; color: #040302; }
+
+.Success.Sleeping,
+.Success.Unknown,
+.Success.CheckingModifications { background: #2bca5b; color: #040302; }
+
+.Success.Pending { background: #2bca5b; color: #040302; }
 
 .Error div.icon  { 
   width: 59px; 
@@ -11,28 +22,4 @@
   top: -25px; 
   right: -25px; 
   background: url(/images/icon_success_building.gif) no-repeat; 
-}
-
-.Success.Sleeping,
-.Success.Unknown,
-.Success.CheckingModifications { 
-  background: #2bca5b; 
-  color: #040302; 
-}
-
-.Success.Building { 
-  background: #B1FB17; 
-  color: #040302; 
-}
-
-.Failure.Unknown,
-.Failure.Sleeping { 
-  background: #882132;
-  color: #fff; 
-}
-
-.Failure.Building,
-.Failure.CheckingModifications { 
-  background: #F88017; 
-  color: #fff; 
 }

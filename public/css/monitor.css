@@ -31,10 +31,10 @@ div.project {
 }
 
 div.icon { 
-  position:absolute; 
+  position:absolute;
 }
 
-div.stats { 
+div.status { 
   font-size: 0.5em;
 }
 
@@ -58,4 +58,3 @@ div.failure {
   background: red;
   float: right;
 }
-

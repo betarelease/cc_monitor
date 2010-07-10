@@ -1,30 +1,26 @@
 
-.Error           { background:#882132; color:#fff; }
+.Error  { background:#882132; color:#fff; }
 .Error div.icon  { 
   width:59px; 
   height:60px; 
   top:-25px; 
   right:-25px; 
-  background:url(/images/icons/success/building.gif) no-repeat; 
+  background:url(/images/icons/failure/building.gif) no-repeat; 
 }
 
-.Success.Unknown,
-.Success.CheckingModifications { background:#B1FB17; color:#040302; }
-
-.Success.Sleeping           { background:#2bca5b; color:#040302; }
-
-.Success.Sleeping div.icon  { 
-  width:76px; 
-  height:87px; 
-  top:-55px; 
-  right:-25px;
-  background:url(/images/themes/icons/success/sleeping.gif) no-repeat; 
+.Failure.Building  { background:#882132; color:#fff; }
+.Failure.Building div.icon  { 
+  width:60px; 
+  height:59px; 
+  top:-25px; 
+  right:-25px; 
+  background:url(/images/themes/icons/failure/building.gif) no-repeat; 
 }
 
 .Failure.Unknown,
 .Failure.CheckingModifications { background:#F88017; color:#fff; }
 
-.Failure.Sleeping           { background:#882132; color:#fff; }
+.Failure.Sleeping  { background:#882132; color:#fff; }
 
 .Failure.Sleeping div.icon  { 
   width:75px; 
@@ -34,7 +30,7 @@
   background:url(/images/themes/icons/failure/sleeping.gif) no-repeat; 
 }
 
-.Success.Building           { background:#2bca5b; color:#040302; }
+.Success.Building  { background:#2bca5b; color:#040302; }
 .Success.Building div.icon  { 
   width:59px; 
   height:60px; 
@@ -42,12 +38,16 @@
   right:-25px; 
   background:url(/images/themes/icons/success/building.gif) no-repeat; 
 }
+.Success.Unknown,
+.Success.CheckingModifications { background:#B1FB17; color:#040302; }
 
-.Failure.Building           { background:#882132; color:#fff; }
-.Failure.Building div.icon  { 
-  width:60px; 
-  height:59px; 
-  top:-25px; 
-  right:-25px; 
-  background:url(/images/themes/icons/failure/building.gif) no-repeat; 
+.Success.Sleeping  { background:#2bca5b; color:#040302; }
+
+.Success.Sleeping div.icon  { 
+  width:76px; 
+  height:87px; 
+  top:-55px; 
+  right:-25px;
+  background:url(/images/themes/icons/success/sleeping.gif) no-repeat; 
 }
+
