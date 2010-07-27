@@ -28,6 +28,7 @@ div.project {
   height: 180px;
   position: relative;
   margin: 20px;
+  -moz-border-radius: 10px 10px 10px 10px;
 }
 
 div.icon { 
