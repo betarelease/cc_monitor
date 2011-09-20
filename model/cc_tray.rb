@@ -1,5 +1,5 @@
 require "rexml/document"
-require 'net/http'
+require 'net/https'
 require 'uri'
 require 'ostruct'
 
@@ -25,7 +25,10 @@ private
     return "" unless address
     url = URI.parse(address)
     begin 
-      Net::HTTP.start(url.host, url.port) do |http|
+      http = Net::HTTP::new(url.host, url.port)
+      http.use_ssl = (url.scheme == 'https')
+      
+      http.start do |http|
         req = Net::HTTP::Get.new(url.path)
         req.basic_auth USERNAME, PASSWORD if AUTH
         response = http.request(req)
@@ -35,7 +38,8 @@ private
           else response.error!
         end
       end
-    rescue
+    rescue => e
+      puts "Exception was #{e.message}"
       error_xml(address)
     end
   end

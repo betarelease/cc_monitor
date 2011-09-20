@@ -6,7 +6,7 @@
 # this will force the controller to be mounted on: /otherurl
 
 class MainController < Ramaze::Controller
-  layout '/page'
+  set_layout 'page'
 
   def index
     require 'socket'

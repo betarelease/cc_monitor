@@ -5,7 +5,7 @@ task :default => ["spec"]
 
 desc "Setup environment"
 task :environment do
-  require 'environment'
+  require './environment'
 end
 
 namespace :db do
