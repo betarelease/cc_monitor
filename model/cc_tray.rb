@@ -4,26 +4,40 @@ require 'uri'
 require 'ostruct'
 
 class CCTray
-  def fetch(address)
-    feed = fetch_xml address
+  def projects(feed)
+    xml = fetch_feed feed    
     projects = []
-    parse(feed) do |element|
+    parse(xml) do |element|
       if element.attributes['name'].include? "Could not connect"
         project = OpenStruct.new(element.attributes)
       else
         project = Project.find_or_create(element)
         project.record!(element)
       end
-      projects << project
+      if ONLY_BROKEN_BUILDS
+        projects << project if project.last_build_status != "Success"
+      else
+        projects << project
+      end
     end
     projects
   end
+
+  def pipelines(feed)
+    projects = projects feed
+    sorted_projects = projects.sort_by(&:name)
+    grouped_by_pipeline = sorted_projects.group_by do |project|
+      project.name.split("::").first
+    end
+    grouped_by_pipeline
+  end
+  
   
 private
-  
-  def fetch_xml(address)
-    return "" unless address
-    url = URI.parse(address)
+
+  def fetch_feed(feed)
+    return "" unless feed
+    url = URI.parse(feed)
     begin 
       http = Net::HTTP::new(url.host, url.port)
       http.use_ssl = (url.scheme == 'https')
@@ -34,21 +48,21 @@ private
         response = http.request(req)
         case response
           when Net::HTTPSuccess     then response.body
-          when Net::HTTPRedirection then fetch_xml(response['location'])
+          when Net::HTTPRedirection then fetch_feed(response['location'])
           else response.error!
         end
       end
     rescue => e
       puts "Exception was #{e.message}"
-      error_xml(address)
+      error_xml(feed)
     end
   end
 
-  def error_xml(address)
+  def error_xml(feed)
     error = <<EOF
 <Projects>
-<Project name="Could not connect to #{address}" activity="Error" 
-lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{address}"/>
+<Project name="Could not connect to #{feed}" activity="Error" 
+lastBuildStatus="Error" lastBuildLabel="unknown" lastBuildTime="unknown" webUrl="#{feed}"/>
 </Projects>
 EOF
   end

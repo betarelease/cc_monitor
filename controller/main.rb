@@ -9,15 +9,17 @@ class MainController < Ramaze::Controller
   set_layout 'page'
 
   def index
-    require 'socket'
-    local_ip_address = UDPSocket.open {|s| s.connect '64.233.187.99', 1; s.addr.last}
-    @host_url = "http://#{local_ip_address}:#{PORT}"
-    theme_index = Date.today.day % THEMES.size
-    @theme = THEMES[ theme_index ]
-    @title = TITLE
+    theme
     @projects = []
-    PROJECTS.each do |projects|
-      @projects += CCTray.new.fetch projects
+    CC_TRAY_FEEDS.each do |feed|
+      @projects += CCTray.new.projects feed
+    end
+  end
+
+  def pipelines
+    theme
+    CC_TRAY_FEEDS.each do |feed|
+      @pipelines = CCTray.new.pipelines feed
     end
   end
   
@@ -25,5 +27,18 @@ class MainController < Ramaze::Controller
     @title = TITLE
     @project = Project.find(1)
     @projects = Project.find(:all)
+  end
+  
+  private
+  def dashboard_url
+    require 'socket'
+    local_ip_address = UDPSocket.open {|s| s.connect '64.233.187.99', 1; s.addr.last}
+    @host_url ||= "http://#{local_ip_address}:#{PORT}"    
+  end
+  
+  def theme
+    @title = TITLE    
+    @host_url = dashboard_url
+    @theme = THEMES[ Date.today.day % THEMES.size ]
   end
 end
