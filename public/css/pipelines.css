@@ -26,6 +26,6 @@ body {
 
 .Success,.Success.Sleeping,
 .Success.Unknown,
-.Success.CheckingModifications { color: green }
+.Success.CheckingModifications { color: #00FF00 }
 
-.Success.Pending { color: green }
+.Success.Pending { color: #00FF00 }

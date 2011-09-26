@@ -3,7 +3,7 @@
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>#{@title}</title>
+    <title>#{@title} (#{@host_url})</title>
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,7 +16,6 @@
     <script type="text/javascript" src="/js/jquery.js"></script>
   </head>
   <body>
-  <h1>#{@title} (#{@host_url})</h1>
     #@content
   </body>
 </html>

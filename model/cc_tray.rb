@@ -2,6 +2,7 @@ require "rexml/document"
 require 'net/https'
 require 'uri'
 require 'ostruct'
+require 'base64'
 
 class CCTray
   def projects(feed)
@@ -44,7 +45,7 @@ private
       
       http.start do |http|
         req = Net::HTTP::Get.new(url.path)
-        req.basic_auth USERNAME, PASSWORD if AUTH
+        req.basic_auth USERNAME, Base64.decode64(PASSWORD) if AUTH
         response = http.request(req)
         case response
           when Net::HTTPSuccess     then response.body
