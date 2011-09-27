@@ -5,6 +5,7 @@ require 'ostruct'
 require 'base64'
 
 class CCTray
+  
   def projects(feed)
     xml = fetch_feed feed    
     projects = []
@@ -30,7 +31,7 @@ class CCTray
     grouped_by_pipeline = sorted_projects.group_by do |project|
       project.name.split("::").first
     end
-    grouped_by_pipeline
+    pipeline_with_stages(grouped_by_pipeline)
   end
   
   
@@ -74,5 +75,12 @@ EOF
     doc.elements.each('Projects/Project') do |element|
       yield element
     end
-  end  
+  end
+  
+  def pipeline_with_stages(grouped_by_pipeline) 
+    grouped_by_pipeline.each do |pipeline, stages|
+      stages = stages.each {|stage| stage.name = stage.name.partition("::").last}
+    end
+  end
+  
 end

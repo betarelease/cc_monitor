@@ -1,7 +1,7 @@
 <?r @pipelines.each do |pipeline_name, stages| ?>
-  <h2>#{pipeline_name}</h2>
   <table>
     <tr>
+      <td class="pipeline" width="20%">#{pipeline_name}</td>
       <?r stages.each do | stage | ?>
         <td>
           <div class="stage #{stage.last_build_status}">

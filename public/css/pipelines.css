@@ -1,16 +1,19 @@
 body {
   margin: 1.8em 0 0 4em;
-  font: 30px "Trebuchet MS", trebuchet, helvetica, arial, sans-serif;
+  font: 20px "Trebuchet MS", trebuchet, helvetica, arial, sans-serif;
   background: black;
 }
 
 .stage {
   float: left;
   color: white;
-  height: 100px;
   position: relative;
   margin: 20px;
   -moz-border-radius: 10px 10px 10px 10px;
+}
+
+td.pipeline {
+  color: white;
 }
 
 
