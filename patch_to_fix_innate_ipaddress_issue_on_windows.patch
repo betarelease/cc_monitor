@@ -1,0 +1,61 @@
+*** lib/innate.rb       Wed Sep 29 16:10:49 2010
+--- lib/innate.rb_orig  Wed Oct  6 09:51:11 2010
+***************
+*** 17,23 ****
+    require 'digest/sha1'
+    require 'digest/sha2'
+    require 'find'
+!   require 'ipaddress'
+    require 'logger'
+    require 'pathname'
+    require 'pp'
+--- 17,23 ----
+    require 'digest/sha1'
+    require 'digest/sha2'
+    require 'find'
+!   require 'ipaddr'
+    require 'logger'
+    require 'pathname'
+    require 'pp'
+***************
+
+*** lib/innate/request.rb       Wed Sep 29 16:11:36 2010
+--- lib/innate/request.rb_orig  Wed Oct  6 09:53:03 2010
+***************
+*** 124,130 ****
+
+      ipv4 = %w[ 127.0.0.1/32 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8
+169.254.0.0/16 ]
+      ipv6 = %w[ fc00::/7 fe80::/10 fec0::/10 ::1 ]
+!     LOCAL = (ipv4 + ipv6).map{|range| IPAddress(range)} unless
+defined?(LOCAL)
+
+      # Request is from a local network?
+      # Checks both IPv4 and IPv6
+--- 124,130 ----
+
+      ipv4 = %w[ 127.0.0.1/32 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8
+169.254.0.0/16 ]
+      ipv6 = %w[ fc00::/7 fe80::/10 fec0::/10 ::1 ]
+!     LOCAL = (ipv4 + ipv6).map{|range| IPAddr.new(range)} unless
+defined?(LOCAL)
+
+      # Request is from a local network?
+      # Checks both IPv4 and IPv6
+***************
+*** 132,138 ****
+      # Optional argument address can be used to check any IP address.
+
+      def local_net?(address = ip)
+!       addr = IPAddress(address)
+        LOCAL.find{|range| range.include?(addr) }
+      rescue ArgumentError => ex
+        raise ArgumentError, ex unless ex.message == 'invalid address'
+--- 132,138 ----
+      # Optional argument address can be used to check any IP address.
+
+      def local_net?(address = ip)
+!       addr = IPAddr.new(address)
+        LOCAL.find{|range| range.include?(addr) }
+      rescue ArgumentError => ex
+        raise ArgumentError, ex unless ex.message == 'invalid address'
