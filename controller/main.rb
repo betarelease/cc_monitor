@@ -39,6 +39,6 @@ class MainController < Ramaze::Controller
   def theme
     @title = TITLE  
     @host_url = dashboard_url
-    @theme = THEMES[ Date.today.day % THEMES.size ]
+    @theme = THEMES[ Date.today.day % THEMES.size ] unless THEMES.blank?
   end
 end

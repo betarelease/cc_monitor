@@ -2,8 +2,9 @@
 # 
 # PORT = "9080"
 # CC_TRAY_FEEDS = [   
-#  "http://url:3333/XmlStatusReport.aspx",
+#  "https://url:3333/XmlStatusReport.aspx",
 #  "http://url2:3333/XmlStatusReport.aspx"  ]
+# ONLY_BROKEN_BUILDS = false
 # AUTH = false
 # required only when AUTH is true
 # USERNAME = "username"
