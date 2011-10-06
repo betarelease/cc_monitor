@@ -1,5 +1,5 @@
-class Project < ActiveRecord::Migration
-  def self.up
+class AddProject < ActiveRecord::Migration
+  def up
     create_table :projects, :force => true do |t|
       t.column :name, :text
       t.column :activity, :text
@@ -15,7 +15,7 @@ class Project < ActiveRecord::Migration
     end
   end
   
-  def self.down
+  def down
     drop_table :projects
   end
 end
