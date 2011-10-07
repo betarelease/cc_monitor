@@ -5,7 +5,7 @@ describe CCTray do
   describe "fetch cc_tray xml" do
     it "should show error when cannot connect" do
       address = "http://localhost:80"
-      CCTray.new.send(:fetch_feed, address).should =~ /Could not connect/
+      CCTray.new.send(:fetch, address).should =~ /Could not connect/
     end
   end
   

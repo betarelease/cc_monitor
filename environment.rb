@@ -3,7 +3,6 @@ RUBY_ROOT =
 
 require "rubygems"
 
-
 require 'rack'
 require 'ramaze'
 require 'active_record'
@@ -19,7 +18,5 @@ ActiveRecord::Base.logger = Logger.new(File.open('database.log', 'a'))
 $LOAD_PATH.unshift( "#{RUBY_ROOT}")
 $LOAD_PATH.unshift( "#{RUBY_ROOT}/start")
 
-require "#{RUBY_ROOT}/model/cc_tray"
-require "#{RUBY_ROOT}/model/project"
-require "#{RUBY_ROOT}/model/statistic"
-require "#{RUBY_ROOT}/controller/main"
+Dir["#{RUBY_ROOT}/model/*.rb"   ].reverse.each { |model| require model }
+Dir["#{RUBY_ROOT}/controller/*.rb"   ].each { |controller| require controller }

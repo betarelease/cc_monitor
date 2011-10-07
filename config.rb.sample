@@ -1,13 +1,15 @@
 # TITLE = "BIG AND VISIBLE BUILD MONITOR"
-# 
 # PORT = "9080"
+
 # CC_TRAY_FEEDS = [   
 #  "https://url:3333/XmlStatusReport.aspx",
 #  "http://url2:3333/XmlStatusReport.aspx"  ]
 # ONLY_BROKEN_BUILDS = false
+# NO_STATS = false
+# THEMES = ['doom', 'icons', 'hudson', 'smiley']
+
 # AUTH = false
 # required only when AUTH is true
 # USERNAME = "username"
 # PASSWORD = "password"
 
-# THEMES = ['doom', 'icons', 'hudson', 'smiley']
