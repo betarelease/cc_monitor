@@ -2,4 +2,4 @@ development_database = File.join(File.expand_path(File.dirname(__FILE__)), "../d
 
 require File.join(File.expand_path(File.dirname(__FILE__)), "../environment")
 
-require 'ramaze/spec/helper'
+# require 'ramaze/spec/helper'

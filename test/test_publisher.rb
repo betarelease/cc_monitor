@@ -50,10 +50,6 @@ XML
 XML
   end
   
-  def hudson_json
-    { "actions" => [ { "causes": []
-                [
-  end
 end
 
 if __FILE__ == $0

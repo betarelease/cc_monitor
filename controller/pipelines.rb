@@ -5,15 +5,20 @@
 #  map '/otherurl'
 # this will force the controller to be mounted on: /otherurl
 
-class MainController < BaseController
-  set_layout 'page'
+class PipelinesController < BaseController
 
   def index
     theme
-    @projects = []
     CC_TRAY_FEEDS.each do |feed|
-      @projects += CCTray.new.projects feed
+      @pipelines = CCTray.new.pipelines feed
     end
+  end
+  
+  def hot
+    theme
+    CC_TRAY_FEEDS.each do |feed|
+      @pipelines = CCTray.new.filter feed
+    end    
   end
   
 end

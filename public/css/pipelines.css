@@ -1,6 +1,6 @@
 body {
   margin: 1.8em 0 0 4em;
-  font: 20px "Trebuchet MS", trebuchet, helvetica, arial, sans-serif;
+  font: 20 "Trebuchet MS", trebuchet, helvetica, arial, sans-serif;
   background: black;
 }
 
@@ -27,7 +27,8 @@ td.pipeline {
 
 .Success.Building { color: yellow }
 
-.Success,.Success.Sleeping,
+.Success,
+.Success.Sleeping,
 .Success.Unknown,
 .Success.CheckingModifications { color: #00FF00 }
 

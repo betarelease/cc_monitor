@@ -4,6 +4,9 @@
 # CC_TRAY_FEEDS = [   
 #  "https://url:3333/XmlStatusReport.aspx",
 #  "http://url2:3333/XmlStatusReport.aspx"  ]
+# PIPELINES = [ "Pipeline 1",
+                "Pipeline 2" ]
+
 # ONLY_BROKEN_BUILDS = false
 # NO_STATS = false
 # THEMES = ['doom', 'icons', 'hudson', 'smiley']

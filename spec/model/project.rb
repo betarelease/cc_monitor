@@ -1,5 +1,4 @@
 require File.join( File.expand_path( File.dirname( __FILE__ ) ), "../spec_helper" )
-require File.join( File.expand_path( File.dirname( __FILE__ ) ), "../../model/project" )
 
 describe Project do
   describe "statistics" do
@@ -61,6 +60,8 @@ describe Project do
       project.record!( feed )
       project.record!( feed )
       project.build_count.should == 2
+      project.successes.should == 1
+      project.failures.should == 1      
     end
 
     it "does not record event if build status is not one of Success or Failure" do

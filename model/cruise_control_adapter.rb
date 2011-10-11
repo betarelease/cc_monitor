@@ -39,5 +39,31 @@ EOF
       error_xml(feed)
     end
   end
+  
+  def pipeline_with_stages(grouped_by_pipeline) 
+    grouped_by_pipeline.each do |pipeline, stages|
+      stages = stages.each {|stage| stage.name = stage.name.partition("::").last}
+    end
+  end
+
+  def convert( element )
+    values = {}
+    element.attributes.each do |name, value|
+      values.merge!( name.underscore.to_sym => value.to_s )
+    end
+    OpenStruct.new(values)
+  end
+  
+  def refine(element)
+    return convert(element) if NO_STATS || element.attributes['name'].include?("Could not connect")
+    record(element)
+  end
+  
+  def record(element)
+    project = Project.find_or_create(element)
+    project.record!(element)
+    project
+  end
+  
 
 end

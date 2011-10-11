@@ -1,5 +1,4 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), "../spec_helper")
-require File.join(File.expand_path(File.dirname(__FILE__)), "../../model/cc_tray")
 
 describe CCTray do
   describe "fetch cc_tray xml" do
