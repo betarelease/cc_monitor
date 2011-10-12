@@ -14,10 +14,17 @@ class PipelinesController < BaseController
     end
   end
   
-  def hot
+  def broken
     theme
     CC_TRAY_FEEDS.each do |feed|
-      @pipelines = CCTray.new.filter feed
+      @pipelines = CCTray.new.broken feed
+    end    
+  end
+  
+  def passing
+    theme
+    CC_TRAY_FEEDS.each do |feed|
+      @pipelines = CCTray.new.passing feed
     end    
   end
   

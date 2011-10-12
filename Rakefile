@@ -23,7 +23,7 @@ desc "Run all specs"
 task :spec => [ :environment ] do
   Dir.glob("spec/model/*.rb").each do |spec_name|
     puts "Running #{spec_name}"
-    puts `spec #{spec_name}`
+    puts `rspec #{spec_name}`
   end
 end
 
