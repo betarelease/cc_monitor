@@ -7,7 +7,6 @@
 # PIPELINES = [ "Pipeline 1",
                 "Pipeline 2" ]
 
-# ONLY_BROKEN_BUILDS = false
 # NO_STATS = false
 # THEMES = ['doom', 'icons', 'hudson', 'smiley']
 

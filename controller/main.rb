@@ -14,7 +14,6 @@ class MainController < BaseController
     CC_TRAY_FEEDS.each do |feed|
       @projects += CCTray.new.projects feed
     end
-    @projects.reject! {|p| p.last_build_status == "Success"} if ONLY_BROKEN_BUILDS
   end
   
 end
