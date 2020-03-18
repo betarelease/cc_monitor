@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  set_table_name 'projects'
+  self.table_name = 'projects'
   
   has_many :statistic
   
