@@ -35,8 +35,6 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
     sqlite3 (1.3.4)
-    sqlite3-ruby (1.3.3)
-      sqlite3 (>= 1.3.3)
     tzinfo (0.3.29)
 
 PLATFORMS
@@ -62,5 +60,7 @@ DEPENDENCIES
   rspec-expectations (~> 2.6.0)
   rspec-mocks (~> 2.6.0)
   sqlite3 (~> 1.3.4)
-  sqlite3-ruby (~> 1.3.3)
   tzinfo (~> 0.3.29)
+
+BUNDLED WITH
+   1.17.2
